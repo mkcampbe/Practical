@@ -7,7 +7,7 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-knitr::opts_knit$set(root.dir = "~/Box Sync/Schmidt_Lab/Bio201_teaching/Practical_files/")
+knitr::opts_knit$set(root.dir = "~/Documents/UMBio201/Practical_files/")
 ```
 
 As with each lab, add "completed" to the Rmd filename; update the name in the author line above; update the location of the working directory as necessary. 
