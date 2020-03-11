@@ -1,0 +1,353 @@
+id	participant_id	study_week	semester	supplement_consumed	frequency	quantity_compliant	enterotype	sex	age	race_ethnicity	weight_kg	height_meters	acetate_mmol_kg	butyrate_mmol_kg	propionate_mmol_kg	ph	bristol	fiber_g
+U001_week1	U001	week1	Winter2015	BRMPS	2xdaily	yes	Type 1	Male	19	Caucasian/white	NA	NA	18.42	11.38	4.02	NA	NA	17
+U001_week3	U001	week3	Winter2015	BRMPS	2xdaily	yes	Type 1	Male	19	Caucasian/white	NA	NA	24.45	8.18	2.57	NA	NA	17
+U002_week1	U002	week1	Winter2015	none	-	none	Type 2	Female	20	Caucasian/white	NA	NA	17.45	8.36	2.69	NA	NA	13
+U002_week3	U002	week3	Winter2015	none	-	none	Type 2	Female	20	Caucasian/white	NA	NA	18.38	10.81	20.88	NA	NA	13
+U004_week1	U004	week1	Winter2015	BRMPS	2xdaily	yes	Type 1	Male	19	Caucasian/white	NA	NA	27.6	17.02	12.32	NA	NA	NA
+U004_week3	U004	week3	Winter2015	BRMPS	2xdaily	yes	Type 1	Male	19	Caucasian/white	NA	NA	31.46	8.43	2.98	NA	NA	NA
+U005_week1	U005	week1	Winter2015	BRMPS	2xdaily	yes	Type 1	Female	18	Caucasian/white	NA	NA	18.14	2.81	3.63	NA	NA	25
+U005_week3	U005	week3	Winter2015	BRMPS	2xdaily	yes	Type 1	Female	18	Caucasian/white	NA	NA	22.83	7.37	5.82	NA	NA	25
+U006_week1	U006	week1	Winter2015	BRMPS	2xdaily	yes	Type 1	Male	18	Caucasian/white	NA	NA	19.17	15.44	6.28	NA	NA	NA
+U006_week3	U006	week3	Winter2015	BRMPS	2xdaily	yes	Type 1	Male	18	Caucasian/white	NA	NA	29.06	16.29	3.66	NA	NA	NA
+U007_week1	U007	week1	Winter2015	BRMPS	2xdaily	yes	Type 3	Female	19	Caucasian/white	NA	NA	31.54	8.34	4.39	NA	NA	32
+U007_week3	U007	week3	Winter2015	BRMPS	2xdaily	yes	Type 3	Female	19	Caucasian/white	NA	NA	22.96	6.45	7.13	NA	NA	32
+U008_week1	U008	week1	Winter2015	BRMPS	2xdaily	yes	Type 1	Female	18	Latinx or Hispanic	NA	NA	11.64	3.05	2.78	NA	NA	15
+U008_week3	U008	week3	Winter2015	BRMPS	2xdaily	yes	Type 1	Female	18	Latinx or Hispanic	NA	NA	15.4	4.15	2.83	NA	NA	15
+U011_week1	U011	week1	Winter2015	BRMPS	2xdaily	yes	Type 4	Male	19	Caucasian/white	NA	NA	28.64	16.43	6.31	NA	NA	13
+U011_week3	U011	week3	Winter2015	BRMPS	2xdaily	yes	Type 4	Male	19	Caucasian/white	NA	NA	13.46	9.34	2.76	NA	NA	13
+U014_week1	U014	week1	Winter2015	BRMPS	2xdaily	yes	Type 1	Male	19	Asian or Pacific Islander	NA	NA	26.78	11.71	3.15	NA	NA	26
+U014_week3	U014	week3	Winter2015	BRMPS	2xdaily	yes	Type 1	Male	19	Asian or Pacific Islander	NA	NA	31.93	8.22	3.38	NA	NA	26
+U015_week1	U015	week1	Winter2015	BRMPS	2xdaily	yes	Type 1	Male	20	Caucasian/white	NA	NA	12.88	9.26	3.54	NA	NA	NA
+U015_week3	U015	week3	Winter2015	BRMPS	2xdaily	yes	Type 1	Male	20	Caucasian/white	NA	NA	26.28	11.47	4.83	NA	NA	NA
+U016_week1	U016	week1	Winter2015	none	-	none	Type 1	Female	20	Caucasian/white	NA	NA	19.41	5.89	2.85	NA	NA	9
+U016_week3	U016	week3	Winter2015	none	-	none	Type 1	Female	20	Caucasian/white	NA	NA	24.39	7.03	6.82	NA	NA	9
+U020_week1	U020	week1	Winter2015	BRMPS	2xdaily	yes	Type 1	Female	19	Black American	NA	NA	24.32	6.69	4.5	NA	NA	13
+U020_week3	U020	week3	Winter2015	BRMPS	2xdaily	yes	Type 1	Female	19	Black American	NA	NA	38.78	12.14	3.87	NA	NA	13
+U024_week1	U024	week1	Winter2015	BRMPS	2xdaily	yes	Type 1	Female	19	Caucasian/white	NA	NA	12.39	7.21	4.64	NA	NA	NA
+U024_week3	U024	week3	Winter2015	BRMPS	2xdaily	yes	Type 1	Female	19	Caucasian/white	NA	NA	7.33	5.23	4.97	NA	NA	NA
+U025_week1	U025	week1	Winter2015	BRMPS	2xdaily	yes	Type 2	Female	19	Black American	NA	NA	31.98	8.66	3.76	NA	NA	NA
+U025_week3	U025	week3	Winter2015	BRMPS	2xdaily	yes	Type 2	Female	19	Black American	NA	NA	31.24	8.03	7	NA	NA	NA
+U026_week1	U026	week1	Winter2015	BRMPS	2xdaily	yes	Type 1	Male	19	Black American	NA	NA	18.79	8.32	4.09	NA	NA	13
+U026_week3	U026	week3	Winter2015	BRMPS	2xdaily	yes	Type 1	Male	19	Black American	NA	NA	23.03	8.49	3.81	NA	NA	13
+U029_week1	U029	week1	Winter2015	BRMPS	2xdaily	yes	Type 1	Male	20	Black American	NA	NA	26.79	8.64	6.4	NA	NA	12
+U029_week3	U029	week3	Winter2015	BRMPS	2xdaily	yes	Type 1	Male	20	Black American	NA	NA	31.67	9.58	3.68	NA	NA	12
+U030_week1	U030	week1	Winter2015	none	-	none	Type 1	Female	19	Caucasian/white	NA	NA	11.49	4.48	2.9	NA	NA	15
+U030_week3	U030	week3	Winter2015	none	-	none	Type 1	Female	19	Caucasian/white	NA	NA	18.96	6.02	12.49	NA	NA	15
+U031_week1	U031	week1	Winter2015	BRMPS	2xdaily	yes	Type 4	Male	19	Other	NA	NA	33.93	11.74	11.02	NA	NA	18
+U031_week3	U031	week3	Winter2015	BRMPS	2xdaily	yes	Type 4	Male	19	Other	NA	NA	59.93	18.96	12.9	NA	NA	18
+U032_week1	U032	week1	Winter2015	BRMPS	2xdaily	yes	Type 1	Female	19	Other	NA	NA	20.38	9.24	4.01	NA	NA	6
+U033_week1	U033	week1	Winter2015	BRMPS	2xdaily	yes	Type 3	Female	19	Caucasian/white	NA	NA	23.47	16.86	5.19	NA	NA	NA
+U033_week3	U033	week3	Winter2015	BRMPS	2xdaily	yes	Type 3	Female	19	Caucasian/white	NA	NA	29.28	9.68	3.39	NA	NA	NA
+U034_week1	U034	week1	Winter2015	BRMPS	2xdaily	yes	Type 2	Female	18	Caucasian/white	NA	NA	30.07	11.82	7.18	NA	NA	NA
+U034_week3	U034	week3	Winter2015	BRMPS	2xdaily	yes	Type 2	Female	18	Caucasian/white	NA	NA	22.16	12.62	4.05	NA	NA	NA
+U035_week1	U035	week1	Winter2015	BRMPS	2xdaily	yes	Type 3	Female	19	Caucasian/white	NA	NA	21.24	3.76	3.97	NA	NA	14
+U035_week3	U035	week3	Winter2015	BRMPS	2xdaily	yes	Type 3	Female	19	Caucasian/white	NA	NA	32.66	8.93	12.92	NA	NA	14
+U127_week1	U127	week1	Winter2016	BRMPS	2xdaily	yes	Type 2	Female	19	Caucasian/white	NA	NA	69.25	16.96	16.48	NA	NA	19
+U127_week3	U127	week3	Winter2016	BRMPS	2xdaily	yes	Type 2	Female	19	Caucasian/white	NA	NA	86.6	17.7	13.41	NA	NA	19
+U128_week1	U128	week1	Winter2016	BRMPS	2xdaily	yes	Type 2	Female	20	Caucasian/white	NA	NA	106.08	14.3	12.87	NA	NA	27
+U128_week3	U128	week3	Winter2016	BRMPS	2xdaily	yes	Type 2	Female	20	Caucasian/white	NA	NA	76.22	10.01	4.65	NA	NA	27
+U129_week1	U129	week1	Winter2016	BRMPS	2xdaily	yes	Type 2	Female	18	Asian or Pacific Islander	NA	NA	40.31	12.21	NA	NA	NA	16
+U129_week3	U129	week3	Winter2016	BRMPS	2xdaily	yes	Type 2	Female	18	Asian or Pacific Islander	NA	NA	68.18	11.04	5.22	NA	NA	16
+U131_week1	U131	week1	Winter2016	BRMPS	2xdaily	yes	Type 1	Female	22	Latinx or Hispanic	NA	NA	81.75	13.88	13.36	NA	NA	11
+U131_week3	U131	week3	Winter2016	BRMPS	2xdaily	yes	Type 1	Female	22	Latinx or Hispanic	NA	NA	95.24	9.75	11.2	NA	NA	11
+U132_week1	U132	week1	Winter2016	BRMPS	2xdaily	yes	Type 2	Female	18	Asian or Pacific Islander	NA	NA	84.79	15.14	15.67	NA	NA	18
+U132_week3	U132	week3	Winter2016	BRMPS	2xdaily	yes	Type 2	Female	18	Asian or Pacific Islander	NA	NA	60.71	45.35	8.07	NA	NA	18
+U149_week1	U149	week1	Winter2016	BRMPS	2xdaily	yes	Type 3	Female	18	Asian or Pacific Islander	NA	NA	38.68	6	5.1	NA	NA	44
+U149_week3	U149	week3	Winter2016	BRMPS	2xdaily	yes	Type 3	Female	18	Asian or Pacific Islander	NA	NA	75.37	14.31	12.07	NA	NA	44
+U150_week1	U150	week1	Winter2016	BRMPS	2xdaily	yes	Type 2	Female	20	Caucasian/white	NA	NA	110.74	11.56	7.68	NA	NA	25
+U150_week3	U150	week3	Winter2016	BRMPS	2xdaily	yes	Type 2	Female	20	Caucasian/white	NA	NA	103.98	19.58	16.72	NA	NA	25
+U151_week1	U151	week1	Winter2016	BRMPS	2xdaily	yes	Type 3	Male	18	Asian or Pacific Islander	NA	NA	59.14	11.99	13.61	NA	NA	NA
+U151_week3	U151	week3	Winter2016	BRMPS	2xdaily	yes	Type 3	Male	18	Asian or Pacific Islander	NA	NA	76.37	23.61	10.11	NA	NA	NA
+U152_week1	U152	week1	Winter2016	BRMPS	2xdaily	yes	Type 1	Female	19	Caucasian/white	NA	NA	56.97	13.11	10.22	NA	NA	15
+U152_week3	U152	week3	Winter2016	BRMPS	2xdaily	yes	Type 1	Female	19	Caucasian/white	NA	NA	50.16	19.86	9.29	NA	NA	15
+U161_week1	U161	week1	Winter2016	BRMPS	2xdaily	yes	Type 2	Male	18	Asian or Pacific Islander	NA	NA	120.85	9.09	9.3	NA	NA	7
+U161_week3	U161	week3	Winter2016	BRMPS	2xdaily	yes	Type 2	Male	18	Asian or Pacific Islander	NA	NA	95.6	17.64	15.73	NA	NA	7
+U165_week1	U165	week1	Winter2016	BRMPS	2xdaily	yes	Type 2	Male	18	Asian or Pacific Islander	NA	NA	51.11	14.96	14.2	NA	NA	17
+U165_week3	U165	week3	Winter2016	BRMPS	2xdaily	yes	Type 2	Male	18	Asian or Pacific Islander	NA	NA	NA	19.01	26.51	NA	NA	17
+U184_week1	U184	week1	Winter2016	BRMPS	2xdaily	yes	Type 1	Female	20	Caucasian/white	NA	NA	110.46	21.29	14.93	NA	NA	NA
+U184_week3	U184	week3	Winter2016	BRMPS	2xdaily	yes	Type 1	Female	20	Caucasian/white	NA	NA	68.07	14.85	8.88	NA	NA	NA
+U185_week1	U185	week1	Winter2016	BRMPS	2xdaily	yes	Type 1	Female	17	Latinx or Hispanic	NA	NA	NA	23.66	NA	NA	NA	13
+U185_week3	U185	week3	Winter2016	BRMPS	2xdaily	yes	Type 1	Female	17	Latinx or Hispanic	NA	NA	84.65	18.71	5.64	NA	NA	13
+U186_week1	U186	week1	Winter2016	BRMPS	2xdaily	yes	Type 2	Male	18	Caucasian/white	NA	NA	50.51	15.7	11.49	NA	NA	11
+U186_week3	U186	week3	Winter2016	BRMPS	2xdaily	yes	Type 2	Male	18	Caucasian/white	NA	NA	66.48	10.97	16.13	NA	NA	11
+U188_week1	U188	week1	Winter2016	BRMPS	2xdaily	yes	Type 1	Male	20	Caucasian/white	NA	NA	94.06	14.81	19.28	NA	NA	28
+U188_week3	U188	week3	Winter2016	BRMPS	2xdaily	yes	Type 1	Male	20	Caucasian/white	NA	NA	92.81	25.37	14.04	NA	NA	28
+U202_week1	U202	week1	Winter2016	BRMPS	2xdaily	yes	Type 1	Female	21	Caucasian/white	NA	NA	65.8	8.5	13.06	NA	NA	26
+U202_week3	U202	week3	Winter2016	BRMPS	2xdaily	yes	Type 1	Female	21	Caucasian/white	NA	NA	96.63	13.3	21.24	NA	NA	26
+U602_week1	U602	week1	Fall2018	BRMPS	1xdaily	yes	Type 1	Female	20	Black American	59.86	NA	107.18	37.66	16.42	6.4	5	8
+U602_week3	U602	week3	Fall2018	BRMPS	1xdaily	yes	Type 1	Female	20	Black American	59.86	NA	75.98	23.98	2.54	6.4	6	8
+U603_week1	U603	week1	Fall2018	BRMPS	1xdaily	yes	Type 1	Female	20	Caucasian/white	65.76	NA	43.2	16.24	17.39	7.2	1	22
+U603_week3	U603	week3	Fall2018	BRMPS	1xdaily	yes	Type 1	Female	20	Caucasian/white	65.76	NA	56.99	16.16	9.55	6.9	4	22
+U605_week1	U605	week1	Fall2018	BRMPS	1xdaily	yes	Type 1	Female	19	2 or more ethnicities	76.19	NA	24.86	10.74	3.37	7.5	3	18
+U605_week3	U605	week3	Fall2018	BRMPS	1xdaily	yes	Type 1	Female	19	2 or more ethnicities	76.19	NA	36.42	14.68	7.88	7.1	4	18
+U606_week1	U606	week1	Fall2018	BRMPS	1xdaily	yes	Type 2	Female	20	Caucasian/white	69.84	NA	27.01	10.63	14.07	7.5	NA	14
+U606_week3	U606	week3	Fall2018	BRMPS	1xdaily	yes	Type 2	Female	20	Caucasian/white	69.84	NA	41.98	10.01	14.51	6.8	3	14
+U607_week1	U607	week1	Fall2018	BRMPS	1xdaily	yes	Type 1	Female	19	2 or more ethnicities	63.49	NA	30.1	8.33	9.01	6.9	NA	21
+U607_week3	U607	week3	Fall2018	BRMPS	1xdaily	yes	Type 1	Female	19	2 or more ethnicities	63.49	NA	49.13	15.66	8.8	7.8	4	21
+U608_week1	U608	week1	Fall2018	BRMPS	1xdaily	yes	Type 3	Female	20	Caucasian/white	58.96	NA	71.97	15.26	7.53	7.2	NA	11
+U608_week3	U608	week3	Fall2018	BRMPS	1xdaily	yes	Type 3	Female	20	Caucasian/white	58.96	NA	31.77	7.82	5.32	7	4	11
+U610_week1	U610	week1	Fall2018	BRMPS	1xdaily	yes	Type 1	Female	19	Other	63.04	NA	39.28	5.89	13.23	7.5	NA	20
+U610_week3	U610	week3	Fall2018	BRMPS	1xdaily	yes	Type 1	Female	19	Other	63.04	NA	56.13	13.34	13.85	6.5	5	20
+U611_week1	U611	week1	Fall2018	BRMPS	1xdaily	yes	Type 1	Female	19	Black American	81.63	NA	50.33	10.53	12.64	6.2	1	5
+U611_week3	U611	week3	Fall2018	BRMPS	1xdaily	yes	Type 1	Female	19	Black American	81.63	NA	45.73	11.75	13.88	6.1	2	5
+U612_week1	U612	week1	Fall2018	BRMPS	1xdaily	yes	Type 4	Male	19	Asian	49.89	NA	67.71	20.52	20.32	6.8	NA	18
+U612_week3	U612	week3	Fall2018	BRMPS	1xdaily	yes	Type 4	Male	19	Asian	49.89	NA	51.51	19.23	21.52	7.5	4	18
+U613_week1	U613	week1	Fall2018	BRMPS	1xdaily	yes	Type 3	Female	19	Asian	48.07	NA	39.15	12.55	10.16	7.4	2	14
+U613_week3	U613	week3	Fall2018	BRMPS	1xdaily	yes	Type 3	Female	19	Asian	48.07	NA	NA	NA	NA	NA	1	14
+U615_week1	U615	week1	Fall2018	BRMPS	1xdaily	yes	Type 3	Male	19	Caucasian/white	74.83	NA	104.89	12.15	12.77	5.9	3	17
+U615_week3	U615	week3	Fall2018	BRMPS	1xdaily	yes	Type 3	Male	19	Caucasian/white	74.83	NA	85.92	14.43	20.72	6.2	3	17
+U618_week1	U618	week1	Fall2018	none	-	none	Type 3	Female	19	2 or more ethnicities	49.89	NA	38.24	12.69	13.8	7.5	4	8
+U618_week3	U618	week3	Fall2018	none	-	none	Type 3	Female	19	2 or more ethnicities	49.89	NA	41.1	11.52	13.37	7.8	3	8
+U619_week1	U619	week1	Fall2018	BRMPS	1xdaily	yes	Type 1	Male	19	Caucasian/white	70.29	NA	34.88	10.81	12.79	7.5	4	23
+U619_week3	U619	week3	Fall2018	BRMPS	1xdaily	yes	Type 1	Male	19	Caucasian/white	70.29	NA	34.23	18.63	14.41	7.8	4	23
+U621_week1	U621	week1	Fall2018	BRMPS	1xdaily	yes	Type 1	Female	19	Caucasian/white	74.83	NA	67.34	21.25	16.55	6.8	4	11
+U621_week3	U621	week3	Fall2018	BRMPS	1xdaily	yes	Type 1	Female	19	Caucasian/white	74.83	NA	40.88	13.86	10.21	7.4	4	11
+U623_week1	U623	week1	Fall2018	BRMPS	1xdaily	yes	Type 1	Female	19	Caucasian/white	56.24	NA	47.02	9.3	13.16	7.1	2	25
+U623_week3	U623	week3	Fall2018	BRMPS	1xdaily	yes	Type 1	Female	19	Caucasian/white	56.24	NA	44.67	7.35	7.72	7.4	2	25
+U624_week1	U624	week1	Fall2018	BRMPS	1xdaily	yes	Type 1	Female	20	Asian	54.42	NA	57.15	10.78	18.17	6.2	4	10
+U624_week3	U624	week3	Fall2018	BRMPS	1xdaily	yes	Type 1	Female	20	Asian	54.42	NA	39.8	11.09	6.34	NA	6	10
+U625_week1	U625	week1	Fall2018	BRMPS	1xdaily	yes	Type 4	Female	19	Asian	61.22	NA	39.39	14.98	20.72	7.4	2	15
+U625_week3	U625	week3	Fall2018	BRMPS	1xdaily	yes	Type 4	Female	19	Asian	61.22	NA	85.86	7.78	25.79	7.2	2	15
+U626_week1	U626	week1	Fall2018	BRMPS	1xdaily	yes	Type 2	Female	20	Asian	47.62	NA	53.68	10.82	6.14	7	3	21
+U626_week3	U626	week3	Fall2018	BRMPS	1xdaily	yes	Type 2	Female	20	Asian	47.62	NA	46.15	11.61	9.97	7.1	3	21
+U628_week1	U628	week1	Fall2018	BRMPS	1xdaily	yes	Type 2	Male	19	Asian	94.33	NA	59.19	9.18	2.22	6.6	6	8
+U628_week3	U628	week3	Fall2018	BRMPS	1xdaily	yes	Type 2	Male	19	Asian	94.33	NA	36.09	2.93	7.61	7	5	8
+U629_week1	U629	week1	Fall2018	BRMPS	1xdaily	yes	Type 2	Female	21	Asian	49.89	NA	44.41	7.17	8.98	7.4	6	19
+U629_week3	U629	week3	Fall2018	BRMPS	1xdaily	yes	Type 2	Female	21	Asian	49.89	NA	71.71	7.75	20.64	6.2	5	19
+U630_week1	U630	week1	Fall2018	BRMPS	1xdaily	yes	Type 3	Male	19	Asian	68.03	NA	40.32	9.97	11.9	7.5	4	21
+U630_week3	U630	week3	Fall2018	BRMPS	1xdaily	yes	Type 3	Male	19	Asian	68.03	NA	38.31	16.86	6.88	7.1	4	21
+U633_week1	U633	week1	Fall2018	BRMPS	1xdaily	yes	Type 1	Male	19	2 or more ethnicities	83.9	NA	46.38	21.93	17.2	7	NA	14
+U633_week3	U633	week3	Fall2018	BRMPS	1xdaily	yes	Type 1	Male	19	2 or more ethnicities	83.9	NA	52.04	24.71	14.73	7.2	4	14
+U634_week1	U634	week1	Fall2018	BRMPS	1xdaily	yes	Type 4	Male	19	Asian	62.59	NA	82.27	16.72	16.22	6.4	4	18
+U634_week3	U634	week3	Fall2018	BRMPS	1xdaily	yes	Type 4	Male	19	Asian	62.59	NA	84.64	NA	NA	6.6	4	18
+U635_week1	U635	week1	Fall2018	BRMPS	1xdaily	yes	Type 1	Female	19	2 or more ethnicities	63.49	NA	51.15	14.81	11.53	7.5	NA	10
+U635_week3	U635	week3	Fall2018	BRMPS	1xdaily	yes	Type 1	Female	19	2 or more ethnicities	63.49	NA	35.24	NA	7.16	7.8	4	10
+U636_week1	U636	week1	Fall2018	BRMPS	1xdaily	yes	Type 2	Female	19	Caucasian/white	53.51	NA	41.56	8.41	17.38	7.8	4	16
+U636_week3	U636	week3	Fall2018	BRMPS	1xdaily	yes	Type 2	Female	19	Caucasian/white	53.51	NA	36.44	10	13.9	7.4	4	16
+U637_week1	U637	week1	Fall2018	none	-	none	Type 2	Male	20	2 or more ethnicities	81.63	NA	30.8	9.05	4.43	6.1	4	28
+U637_week3	U637	week3	Fall2018	none	-	none	Type 2	Male	20	2 or more ethnicities	81.63	NA	59.41	27.72	9.2	6	4	28
+U638_week1	U638	week1	Fall2018	BRMPS	1xdaily	yes	Type 4	Male	19	Prefer not to say	70.29	NA	68.73	17.15	33.01	6.8	4	NA
+U638_week3	U638	week3	Fall2018	BRMPS	1xdaily	yes	Type 4	Male	19	Prefer not to say	70.29	NA	59.03	9.53	27.34	7.2	4	NA
+U642_week1	U642	week1	Fall2018	BRMPS	1xdaily	yes	Type 1	Female	21	Caucasian/white	58.05	NA	31.23	2.89	6.22	7.1	5	13
+U642_week3	U642	week3	Fall2018	BRMPS	1xdaily	yes	Type 1	Female	21	Caucasian/white	58.05	NA	33.54	8.69	12.37	7.2	4	13
+U650_week1	U650	week1	Fall2018	none	-	none	Type 2	Female	19	Asian	61.22	NA	92.5	4.78	13.89	6.2	4	21
+U650_week3	U650	week3	Fall2018	none	-	none	Type 2	Female	19	Asian	61.22	NA	76.53	8.05	8.43	7.8	4	21
+U663_week1	U663	week1	Fall2018	none	-	none	Type 3	Female	20	Asian	58.5	NA	36.07	14.29	10.51	6.4	4	8
+U663_week3	U663	week3	Fall2018	none	-	none	Type 3	Female	20	Asian	58.5	NA	36.21	14.42	11.81	7.5	4	8
+U665_week1	U665	week1	Fall2018	none	-	none	Type 3	Female	19	Asian	48.07	NA	51.61	16.63	7.58	7.2	4	29
+U665_week3	U665	week3	Fall2018	none	-	none	Type 3	Female	19	Asian	48.07	NA	57.64	21.46	5.69	6.5	5	29
+U668_week1	U668	week1	Fall2018	none	-	none	Type 3	Female	20	Caucasian/white	54.42	NA	54.14	7.59	11.55	8	5	15
+U668_week3	U668	week3	Fall2018	none	-	none	Type 3	Female	20	Caucasian/white	54.42	NA	48.45	8.7	13.57	8	3	15
+U670_week1	U670	week1	Fall2018	none	-	none	Type 2	Female	19	Asian	53.51	NA	37.63	16.44	11.1	8	4	11
+U670_week3	U670	week3	Fall2018	none	-	none	Type 2	Female	19	Asian	53.51	NA	44.73	5.24	16.34	7.8	4	11
+U672_week1	U672	week1	Fall2018	none	-	none	Type 2	Female	21	Asian	61.22	NA	NA	NA	NA	7.5	NA	21
+U672_week3	U672	week3	Fall2018	none	-	none	Type 2	Female	21	Asian	61.22	NA	72.33	10.5	11.08	7.4	2	21
+U677_week1	U677	week1	Fall2018	none	-	none	Type 1	Female	20	Caucasian/white	77.1	NA	56.22	17.7	8.81	7.4	NA	8
+U677_week3	U677	week3	Fall2018	none	-	none	Type 1	Female	20	Caucasian/white	77.1	NA	70.69	4.38	8.01	7.5	3	8
+U683_week1	U683	week1	Fall2018	none	-	none	Type 3	Female	19	Asian	45.35	NA	NA	NA	NA	6.9	4	12
+U683_week3	U683	week3	Fall2018	none	-	none	Type 3	Female	19	Asian	45.35	NA	NA	NA	NA	NA	4	12
+U700_week1	U700	week1	Winter2019	LOODAT	1xdaily	yes	Type 2	Male	19	Asian	61.22	1.7	37.5	5.38	8.13	6.7	4	18
+U700_week3	U700	week3	Winter2019	LOODAT	1xdaily	yes	Type 2	Male	19	Asian	61.22	1.7	80.38	12.24	9.54	6.4	4	18
+U701_week1	U701	week1	Winter2019	LOODAT	1xdaily	yes	Type 3	Female	19	Asian	58.96	1.7	42.43	7.89	4.67	7.3	5	18
+U701_week3	U701	week3	Winter2019	LOODAT	1xdaily	yes	Type 3	Female	19	Asian	58.96	1.7	36.22	7.74	7.57	7.5	3	18
+U703_week1	U703	week1	Winter2019	none	-	none	Type 3	Female	19	Caucasian/white	63.49	1.7	52.42	12.06	13.37	6.1	4	17
+U703_week3	U703	week3	Winter2019	none	-	none	Type 3	Female	19	Caucasian/white	63.49	1.7	72.15	12.12	14.37	6.5	3	17
+U705_week1	U705	week1	Winter2019	none	-	none	Type 2	Female	18	Caucasian/white	63.49	1.78	40.92	7.5	15.85	7.4	3	17
+U705_week3	U705	week3	Winter2019	none	-	none	Type 2	Female	18	Caucasian/white	63.49	1.78	37.57	7.63	10.76	7.5	2	17
+U707_week1	U707	week1	Winter2019	LOODAT	1xdaily	yes	Type 1	Female	18	Caucasian/white	70.29	1.68	38.7	9.33	6.06	7.1	3	25
+U707_week3	U707	week3	Winter2019	LOODAT	1xdaily	yes	Type 1	Female	18	Caucasian/white	70.29	1.68	50.23	10.39	8.03	7.1	4	25
+U708_week1	U708	week1	Winter2019	LOODAT	1xdaily	yes	Type 3	Male	19	Middle Eastern or North African (MENA)	65.76	1.75	45.03	12.19	8.29	7	4	18
+U708_week3	U708	week3	Winter2019	LOODAT	1xdaily	yes	Type 3	Male	19	Middle Eastern or North African (MENA)	65.76	1.75	40.55	7.75	10.31	7	4	18
+U710_week1	U710	week1	Winter2019	LOODAT	1xdaily	yes	Type 1	Female	18	Black American	58.96	1.6	32.85	5.81	7.32	7.3	5	7
+U710_week3	U710	week3	Winter2019	LOODAT	1xdaily	yes	Type 1	Female	18	Black American	58.96	1.6	48.54	9.97	4.32	7.2	3	7
+U711_week1	U711	week1	Winter2019	LOODAT	1xdaily	yes	Type 2	Male	20	Middle Eastern or North African (MENA)	87.53	1.77	62.56	18.49	11.79	5.3	4	18
+U711_week3	U711	week3	Winter2019	LOODAT	1xdaily	yes	Type 2	Male	20	Middle Eastern or North African (MENA)	87.53	1.77	57.69	22.25	4.4	6.2	6	18
+U712_week1	U712	week1	Winter2019	LOODAT	1xdaily	yes	Type 1	Female	19	Caucasian/white	59.86	1.65	46.91	8.36	9.98	6.7	3	10
+U712_week3	U712	week3	Winter2019	LOODAT	1xdaily	yes	Type 1	Female	19	Caucasian/white	59.86	1.65	54.19	10.55	17.29	7.2	2	10
+U713_week1	U713	week1	Winter2019	LOODAT	1xdaily	yes	Type 3	Female	18	2 or more ethnicities	61.22	1.7	29.75	8	6.41	7.2	3	17
+U713_week3	U713	week3	Winter2019	LOODAT	1xdaily	yes	Type 3	Female	18	2 or more ethnicities	61.22	1.7	32.9	14.47	15.39	7.2	5	17
+U714_week1	U714	week1	Winter2019	none	-	none	Type 3	Male	18	Asian	58.96	1.7	36.82	10.45	12.79	7.4	2	4
+U714_week3	U714	week3	Winter2019	none	-	none	Type 3	Male	18	Asian	58.96	1.7	14.3	NA	6.31	7.5	2	4
+U715_week1	U715	week1	Winter2019	LOODAT	1xdaily	yes	Type 1	Male	18	Asian	76.64	1.75	58.82	26.64	18.36	6	3	15
+U715_week3	U715	week3	Winter2019	LOODAT	1xdaily	yes	Type 1	Male	18	Asian	76.64	1.75	50.47	19.17	16	6.2	3	15
+U716_week1	U716	week1	Winter2019	LOODAT	1xdaily	yes	Type 3	Male	18	2 or more ethnicities	74.38	1.73	50.1	5.36	4.94	6.5	2	16
+U716_week3	U716	week3	Winter2019	LOODAT	1xdaily	yes	Type 3	Male	18	2 or more ethnicities	74.38	1.73	38.85	3.62	5.18	6.2	2	16
+U717_week1	U717	week1	Winter2019	LOODAT	1xdaily	yes	Type 1	Female	20	Caucasian/white	55.33	1.6	62.99	16.05	19.1	7.4	3	12
+U717_week3	U717	week3	Winter2019	LOODAT	1xdaily	yes	Type 1	Female	20	Caucasian/white	55.33	1.6	50.41	11.55	6.07	7.8	4	12
+U719_week1	U719	week1	Winter2019	LOODAT	1xdaily	yes	Type 2	Female	18	Asian	56.69	1.6	40.84	7.41	15.41	7.5	2	22
+U719_week3	U719	week3	Winter2019	LOODAT	1xdaily	yes	Type 2	Female	18	Asian	56.69	1.6	62.67	16.61	9.29	7.5	5	22
+U720_week1	U720	week1	Winter2019	LOODAT	1xdaily	yes	Type 2	Female	21	Asian	68.03	1.65	40.76	7.74	21.55	6.5	4	7
+U720_week3	U720	week3	Winter2019	LOODAT	1xdaily	yes	Type 2	Female	21	Asian	68.03	1.65	44.23	10.51	15.17	7.1	3	7
+U721_week1	U721	week1	Winter2019	LOODAT	1xdaily	yes	Type 2	Female	21	Caucasian/white	61.22	1.63	37.61	10.68	9.91	7.8	4	21
+U721_week3	U721	week3	Winter2019	LOODAT	1xdaily	yes	Type 2	Female	21	Caucasian/white	61.22	1.63	43.56	10.48	7.66	7.3	3	21
+U722_week1	U722	week1	Winter2019	none	-	none	Type 3	Female	19	Caucasian/white	58.96	1.65	70.45	17.86	10.66	NA	4	6
+U722_week3	U722	week3	Winter2019	none	-	none	Type 3	Female	19	Caucasian/white	58.96	1.65	86.13	31.64	14.42	NA	4	6
+U723_week1	U723	week1	Winter2019	LOODAT	1xdaily	yes	Type 2	Female	20	Hawaiian or Pacific Islander	50.79	1.65	48.69	11.35	18.57	5.9	3	11
+U723_week3	U723	week3	Winter2019	LOODAT	1xdaily	yes	Type 2	Female	20	Hawaiian or Pacific Islander	50.79	1.65	42.19	18.22	4.31	5.7	4	11
+U724_week1	U724	week1	Winter2019	BRMPS	1xdaily	yes	Type 2	Female	18	Caucasian/white	69.84	1.65	34.38	2.8	5.5	7.7	1	13
+U724_week3	U724	week3	Winter2019	BRMPS	1xdaily	yes	Type 2	Female	18	Caucasian/white	69.84	1.65	24.1	2.45	4.23	5.8	2	13
+U725_week1	U725	week1	Winter2019	BRMPS	1xdaily	yes	Type 1	Female	18	Asian	56.24	1.6	41.3	7.6	14.23	7.8	4	34
+U725_week3	U725	week3	Winter2019	BRMPS	1xdaily	yes	Type 1	Female	18	Asian	56.24	1.6	57.58	8.76	13.88	7.4	4	34
+U726_week1	U726	week1	Winter2019	BRMPS	1xdaily	yes	Type 2	Male	20	Asian	95.24	1.8	39.82	9.62	10.47	6.3	4	9
+U726_week3	U726	week3	Winter2019	BRMPS	1xdaily	yes	Type 2	Male	20	Asian	95.24	1.8	56.92	12.12	15.2	6.3	4	9
+U727_week1	U727	week1	Winter2019	BRMPS	1xdaily	yes	Type 4	Male	20	2 or more ethnicities	86.17	1.88	44.83	6.21	12.74	7.7	4	16
+U727_week3	U727	week3	Winter2019	BRMPS	1xdaily	yes	Type 4	Male	20	2 or more ethnicities	86.17	1.88	55.14	8.54	8.58	6.8	4	16
+U728_week1	U728	week1	Winter2019	BRMPS	1xdaily	yes	Type 1	Male	19	Middle Eastern or North African (MENA)	68.03	1.85	67.98	13.98	19.06	5.8	3	24
+U728_week3	U728	week3	Winter2019	BRMPS	1xdaily	yes	Type 1	Male	19	Middle Eastern or North African (MENA)	68.03	1.85	28.26	11.34	8.42	5.8	3	24
+U729_week1	U729	week1	Winter2019	BRMPS	1xdaily	yes	Type 3	Male	19	Asian	95.24	1.78	52.67	10.16	8.34	7.2	2	15
+U729_week3	U729	week3	Winter2019	BRMPS	1xdaily	yes	Type 3	Male	19	Asian	95.24	1.78	58.89	11.58	13.12	6	3	15
+U730_week1	U730	week1	Winter2019	BRMPS	1xdaily	yes	Type 1	Female	20	2 or more ethnicities	58.96	1.68	68.46	28.73	19.27	6.5	5	15
+U730_week3	U730	week3	Winter2019	BRMPS	1xdaily	yes	Type 1	Female	20	2 or more ethnicities	58.96	1.68	54.31	24.72	13.99	5.9	4	15
+U731_week1	U731	week1	Winter2019	none	-	none	Type 4	Female	19	Middle Eastern or North African (MENA)	67.57	1.7	85.92	9.48	11.69	6.7	4	20
+U731_week3	U731	week3	Winter2019	none	-	none	Type 4	Female	19	Middle Eastern or North African (MENA)	67.57	1.7	94.98	24.09	31.19	7	4	20
+U734_week1	U734	week1	Winter2019	BRMPS	1xdaily	yes	Type 1	Male	20	Middle Eastern or North African (MENA)	68.03	1.83	49.41	14.74	13.16	7	4	17
+U734_week3	U734	week3	Winter2019	BRMPS	1xdaily	yes	Type 1	Male	20	Middle Eastern or North African (MENA)	68.03	1.83	42.91	6.6	12.32	7.7	4	17
+U738_week1	U738	week1	Winter2019	BRMPS	1xdaily	yes	Type 1	Female	19	Caucasian/white	54.42	1.57	53.45	10.31	7.6	7.3	4	23
+U738_week3	U738	week3	Winter2019	BRMPS	1xdaily	yes	Type 1	Female	19	Caucasian/white	54.42	1.57	51.64	6.56	4.81	7.2	5	23
+U739_week1	U739	week1	Winter2019	BRMPS	1xdaily	yes	Type 1	Female	19	Caucasian/white	72.56	1.78	51.97	12.64	8.87	7.1	6	15
+U739_week3	U739	week3	Winter2019	BRMPS	1xdaily	yes	Type 1	Female	19	Caucasian/white	72.56	1.78	55.24	16.3	6.45	7	5	15
+U740_week1	U740	week1	Winter2019	BRMPS	1xdaily	yes	Type 2	Female	18	Asian	56.69	1.6	36.22	9.1	5.85	6.9	3	17
+U740_week3	U740	week3	Winter2019	BRMPS	1xdaily	yes	Type 2	Female	18	Asian	56.69	1.6	57.54	19.21	17.96	6.6	4	17
+U741_week1	U741	week1	Winter2019	none	-	none	Type 1	Female	18	Asian	56.24	1.68	86.76	21.4	26.76	6.8	3	11
+U741_week3	U741	week3	Winter2019	none	-	none	Type 1	Female	18	Asian	56.24	1.68	81.64	17.91	19.89	6.4	4	11
+U744_week1	U744	week1	Winter2019	BRMPS	1xdaily	yes	Type 2	Female	18	Asian	49.89	1.52	50.74	9.34	25.93	7.2	2	18
+U744_week3	U744	week3	Winter2019	BRMPS	1xdaily	yes	Type 2	Female	18	Asian	49.89	1.52	93.1	12.1	11.43	6.8	4	18
+U745_week1	U745	week1	Winter2019	BRMPS	1xdaily	yes	Type 3	Male	19	Asian	66.67	1.78	50	9.78	13.47	7.1	4	26
+U745_week3	U745	week3	Winter2019	BRMPS	1xdaily	yes	Type 3	Male	19	Asian	66.67	1.78	75.3	13.11	8.38	6.7	4	26
+U746_week1	U746	week1	Winter2019	BRMPS	1xdaily	yes	Type 1	Male	19	Middle Eastern or North African (MENA)	88.44	1.83	64.11	16.66	10.32	6.1	3	14
+U746_week3	U746	week3	Winter2019	BRMPS	1xdaily	yes	Type 1	Male	19	Middle Eastern or North African (MENA)	88.44	1.83	64.48	23.69	13.6	6.5	4	14
+U747_week1	U747	week1	Winter2019	BRMPS	1xdaily	yes	Type 2	Female	18	Caucasian/white	54.42	1.7	36.84	10.01	13.39	6.3	3	18
+U747_week3	U747	week3	Winter2019	BRMPS	1xdaily	yes	Type 2	Female	18	Caucasian/white	54.42	1.7	19.19	23.78	6.27	7.4	4	18
+U749_week1	U749	week1	Winter2019	BRMPS	1xdaily	yes	Type 4	Male	29	Black non-American	54.42	1.73	49.58	12.9	14.76	5.8	4	10
+U749_week3	U749	week3	Winter2019	BRMPS	1xdaily	yes	Type 4	Male	29	Black non-American	54.42	1.73	69.83	11.19	17.35	6.1	4	10
+U753_week1	U753	week1	Winter2019	BRMPS	1xdaily	yes	Type 3	Female	19	Caucasian/white	48.53	1.68	19.41	4.47	4.72	6.9	4	34
+U753_week3	U753	week3	Winter2019	BRMPS	1xdaily	yes	Type 3	Female	19	Caucasian/white	48.53	1.68	39.73	14.75	6.23	6.8	5	34
+U754_week1	U754	week1	Winter2019	none	-	none	Type 1	Female	19	Caucasian/white	47.17	1.5	NA	NA	NA	NA	4	11
+U754_week3	U754	week3	Winter2019	none	-	none	Type 1	Female	19	Caucasian/white	47.17	1.5	67.75	NA	6.72	7.6	4	11
+U756_week1	U756	week1	Winter2019	BRMPS	1xdaily	yes	Type 1	Female	18	Caucasian/white	70.75	1.57	52.22	19.19	11.31	6.4	4	18
+U756_week3	U756	week3	Winter2019	BRMPS	1xdaily	yes	Type 1	Female	18	Caucasian/white	70.75	1.57	53.28	14.57	6.83	6.7	4	18
+U758_week1	U758	week1	Winter2019	BRMPS	1xdaily	yes	Type 1	Male	19	Asian	80.73	1.73	45.46	15.09	4.81	7.5	5	14
+U758_week3	U758	week3	Winter2019	BRMPS	1xdaily	yes	Type 1	Male	19	Asian	80.73	1.73	61.96	16.76	10.09	6.3	4	14
+U759_week1	U759	week1	Winter2019	none	-	none	Type 2	Female	22	Asian	49.89	1.57	37.86	6.77	12.21	8	4	26
+U759_week3	U759	week3	Winter2019	none	-	none	Type 2	Female	22	Asian	49.89	1.57	46.18	12.61	8.79	7.3	4	26
+U761_week1	U761	week1	Winter2019	BRMPS	1xdaily	yes	Type 1	Female	19	Asian	49.89	1.6	58.98	4.61	6.05	7	3	9
+U761_week3	U761	week3	Winter2019	BRMPS	1xdaily	yes	Type 1	Female	19	Asian	49.89	1.6	57.09	8.89	4.16	7.3	3	9
+U763_week1	U763	week1	Winter2019	none	-	none	Type 3	Male	19	Caucasian/white	65.76	1.83	NA	NA	NA	7.3	NA	13
+U763_week3	U763	week3	Winter2019	none	-	none	Type 3	Male	19	Caucasian/white	65.76	1.83	NA	NA	NA	7.6	NA	13
+U764_week1	U764	week1	Winter2019	BRMPS	1xdaily	yes	Type 1	Female	18	Asian	63.49	1.68	57.76	18.88	13.57	6.2	3	7
+U764_week3	U764	week3	Winter2019	BRMPS	1xdaily	yes	Type 1	Female	18	Asian	63.49	1.68	52.53	9.55	6.29	5.2	4	7
+U767_week1	U767	week1	Winter2019	BRMPS	1xdaily	yes	Type 4	Female	19	Asian	72.56	1.57	47.42	9.16	12.99	5.9	5	8
+U767_week3	U767	week3	Winter2019	BRMPS	1xdaily	yes	Type 4	Female	19	Asian	72.56	1.57	56.26	6.73	17	6.3	4	8
+U770_week1	U770	week1	Winter2019	BRMPS	1xdaily	yes	Type 1	Female	19	Asian	54.42	1.68	37.63	9.39	6.05	7.5	3	24
+U770_week3	U770	week3	Winter2019	BRMPS	1xdaily	yes	Type 1	Female	19	Asian	54.42	1.68	34.64	10.91	4.98	7.8	3	24
+U771_week1	U771	week1	Winter2019	BRMPS	1xdaily	yes	Type 2	Female	18	Asian	54.42	1.63	65.31	17.87	17.36	7.5	3	8
+U771_week3	U771	week3	Winter2019	BRMPS	1xdaily	yes	Type 2	Female	18	Asian	54.42	1.63	63.95	9.79	6.02	6.1	2	8
+U772_week1	U772	week1	Winter2019	BRMPS	1xdaily	yes	Type 3	Female	18	Caucasian/white	52.15	1.57	74.19	15.26	12.7	7.1	4	23
+U772_week3	U772	week3	Winter2019	BRMPS	1xdaily	yes	Type 3	Female	18	Caucasian/white	52.15	1.57	52.58	17.26	6.18	7.7	4	23
+U773_week1	U773	week1	Winter2019	BRMPS	1xdaily	yes	Type 1	Female	19	Caucasian/white	67.12	1.68	33.15	11.69	9.55	7.8	4	26
+U773_week3	U773	week3	Winter2019	BRMPS	1xdaily	yes	Type 1	Female	19	Caucasian/white	67.12	1.68	60.89	23.31	7.49	6.8	2	26
+U776_week1	U776	week1	Winter2019	BRMPS	1xdaily	yes	Type 4	Male	20	Middle Eastern or North African (MENA)	66.21	1.7	40.29	12.06	8.4	5.9	3	12
+U776_week3	U776	week3	Winter2019	BRMPS	1xdaily	yes	Type 4	Male	20	Middle Eastern or North African (MENA)	66.21	1.7	31.14	7.31	6.48	6	3	12
+U778_week1	U778	week1	Winter2019	BRMPS	1xdaily	yes	Type 1	Female	19	Asian	61.22	1.55	53.2	27.13	11.54	7.3	4	5
+U778_week3	U778	week3	Winter2019	BRMPS	1xdaily	yes	Type 1	Female	19	Asian	61.22	1.55	47.64	6.3	7.46	7.4	3	5
+U779_week1	U779	week1	Winter2019	BRMPS	1xdaily	yes	Type 1	Male	21	2 or more ethnicities	106.58	1.83	33.44	7.21	6.36	6.9	3	23
+U779_week3	U779	week3	Winter2019	BRMPS	1xdaily	yes	Type 1	Male	21	2 or more ethnicities	106.58	1.83	35.31	12.7	3.99	7.2	3	23
+U780_week1	U780	week1	Winter2019	BRMPS	1xdaily	yes	Type 2	Female	19	Caucasian/white	56.69	1.63	41.84	16.15	8.49	6.8	4	14
+U780_week3	U780	week3	Winter2019	BRMPS	1xdaily	yes	Type 2	Female	19	Caucasian/white	56.69	1.63	38.15	10.61	5.14	7.2	4	14
+U781_week1	U781	week1	Winter2019	BRMPS	1xdaily	yes	Type 1	Female	21	Caucasian/white	54.42	1.55	33.37	6.55	5.36	8	3	37
+U781_week3	U781	week3	Winter2019	BRMPS	1xdaily	yes	Type 1	Female	21	Caucasian/white	54.42	1.55	54.79	7.97	13.68	7.4	4	37
+U783_week1	U783	week1	Winter2019	none	-	none	Type 3	Female	19	Caucasian/white	52.15	1.6	66.09	15.49	8.07	6.2	4	10
+U783_week3	U783	week3	Winter2019	none	-	none	Type 3	Female	19	Caucasian/white	52.15	1.6	65.16	14.41	9.03	6.2	4	10
+U784_week1	U784	week1	Winter2019	BRMPS	1xdaily	yes	Type 4	Male	21	Asian	81.63	1.8	49.83	6.41	14.15	6.4	5	8
+U784_week3	U784	week3	Winter2019	BRMPS	1xdaily	yes	Type 4	Male	21	Asian	81.63	1.8	47.49	12.72	11.73	7	4	8
+U786_week1	U786	week1	Winter2019	BRMPS	1xdaily	yes	Type 1	Male	19	Caucasian/white	81.63	1.78	62.45	23.3	13.15	6.9	5	36
+U786_week3	U786	week3	Winter2019	BRMPS	1xdaily	yes	Type 1	Male	19	Caucasian/white	81.63	1.78	66.67	26.98	9.7	7	4	36
+U787_week1	U787	week1	Winter2019	none	-	none	Type 1	Female	18	Asian	49.43	1.66	21.05	8.98	4.76	5.8	3	18
+U787_week3	U787	week3	Winter2019	none	-	none	Type 1	Female	18	Asian	49.43	1.66	48.19	9.86	6.66	6.7	4	18
+U788_week1	U788	week1	Winter2019	BRMPS	1xdaily	yes	Type 1	Male	18	Caucasian/white	64.4	1.73	62.9	12.74	9.75	7.2	3	14
+U788_week3	U788	week3	Winter2019	BRMPS	1xdaily	yes	Type 1	Male	18	Caucasian/white	64.4	1.73	69.6	18.97	14.58	7.2	4	14
+U789_week1	U789	week1	Winter2019	BRMPS	1xdaily	yes	Type 1	Male	20	Middle Eastern or North African (MENA)	82.99	1.88	43.57	17.34	6.13	6.7	4	16
+U789_week3	U789	week3	Winter2019	BRMPS	1xdaily	yes	Type 1	Male	20	Middle Eastern or North African (MENA)	82.99	1.88	59.64	31.98	14.59	6.6	4	16
+U792_week1	U792	week1	Winter2019	none	-	none	Type 1	Female	20	Caucasian/white	58.05	1.68	40.55	9.07	7.77	6.4	3	13
+U792_week3	U792	week3	Winter2019	none	-	none	Type 1	Female	20	Caucasian/white	58.05	1.68	44.01	10.19	6.91	7.2	4	13
+U796_week1	U796	week1	Winter2019	BRMPS	1xdaily	yes	Type 2	Female	20	Caucasian/white	65.76	1.75	41.42	10.15	14.29	7.4	4	15
+U796_week3	U796	week3	Winter2019	BRMPS	1xdaily	yes	Type 2	Female	20	Caucasian/white	65.76	1.75	78.02	20.67	16.22	7.8	4	15
+U797_week1	U797	week1	Winter2019	BRMPS	1xdaily	yes	Type 1	Female	19	2 or more ethnicities	72.56	1.68	33.88	10.26	6.95	7.1	3	12
+U797_week3	U797	week3	Winter2019	BRMPS	1xdaily	yes	Type 1	Female	19	2 or more ethnicities	72.56	1.68	46.94	6.02	9.73	6.9	4	12
+U798_week1	U798	week1	Winter2019	BRMPS	1xdaily	yes	Type 1	Female	20	Caucasian/white	72.56	1.68	43.6	20.48	12.61	6.2	3	17
+U798_week3	U798	week3	Winter2019	BRMPS	1xdaily	yes	Type 1	Female	20	Caucasian/white	72.56	1.68	47.18	10.33	6.09	6.2	4	17
+U801_week1	U801	week1	Fall2019	LOODAT	2xdaily	yes	Type 2	Female	18	Asian	48.53	1.6	34.88	4.85	6.67	6.2	NA	NA
+U801_week3	U801	week3	Fall2019	LOODAT	2xdaily	yes	Type 2	Female	18	Asian	48.53	1.6	36.19	7.41	11.67	6	NA	NA
+U802_week1	U802	week1	Fall2019	LOODAT	2xdaily	yes	Type 2	Female	20	Asian	48.07	1.57	24.87	8.38	17.01	7	NA	15
+U802_week3	U802	week3	Fall2019	LOODAT	2xdaily	yes	Type 2	Female	20	Asian	48.07	1.57	38.5	12.44	4.58	5.5	NA	15
+U804_week1	U804	week1	Fall2019	LOODAT	2xdaily	yes	Type 4	Male	20	Caucasian/white	70.29	1.73	44.88	7.76	18.33	7	NA	23
+U804_week3	U804	week3	Fall2019	LOODAT	2xdaily	yes	Type 4	Male	20	Caucasian/white	70.29	1.73	30.88	12.49	15.67	8	NA	23
+U805_week1	U805	week1	Fall2019	LOODAT	2xdaily	yes	Type 2	Female	19	Caucasian/white	73.92	1.68	31.55	12.08	12.83	6.7	NA	15
+U805_week3	U805	week3	Fall2019	LOODAT	2xdaily	yes	Type 2	Female	19	Caucasian/white	73.92	1.68	21.58	11.14	12.26	6.8	NA	15
+U806_week1	U806	week1	Fall2019	none	-	none	Type 2	Female	20	Caucasian/white	68.03	1.63	NA	NA	NA	8	NA	21
+U806_week3	U806	week3	Fall2019	none	-	none	Type 2	Female	20	Caucasian/white	68.03	1.63	NA	NA	NA	8	NA	21
+U810_week1	U810	week1	Fall2019	LOODAT	2xdaily	yes	Type 2	Female	19	Asian	52.15	1.57	18.35	4.69	10.09	7	NA	9
+U810_week3	U810	week3	Fall2019	LOODAT	2xdaily	yes	Type 2	Female	19	Asian	52.15	1.57	23.88	4.63	2.82	6	NA	9
+U811_week1	U811	week1	Fall2019	LOODAT	2xdaily	yes	Type 3	Female	19	Caucasian/white	54.42	1.65	28.36	12.84	13.34	6.5	NA	16
+U811_week3	U811	week3	Fall2019	LOODAT	2xdaily	yes	Type 3	Female	19	Caucasian/white	54.42	1.65	45.1	9.48	9.38	6	NA	16
+U812_week1	U812	week1	Fall2019	LOODAT	2xdaily	yes	Type 2	Male	19	Asian	63.49	1.73	25.34	9.15	8.32	7	NA	19
+U812_week3	U812	week3	Fall2019	LOODAT	2xdaily	yes	Type 2	Male	19	Asian	63.49	1.73	34.13	9.02	5.97	6.5	NA	19
+U815_week1	U815	week1	Fall2019	LOODAT	2xdaily	yes	Type 1	Female	19	Caucasian/white	70.29	1.65	47.37	17.39	19.54	6.5	NA	26
+U815_week3	U815	week3	Fall2019	LOODAT	2xdaily	yes	Type 1	Female	19	Caucasian/white	70.29	1.65	50.57	17.21	13.36	6.3	NA	26
+U816_week1	U816	week1	Fall2019	LOODAT	2xdaily	yes	Type 2	Female	19	Middle Eastern or North African (MENA)	64.85	1.52	36.88	9.88	18.64	6.3	NA	18
+U816_week3	U816	week3	Fall2019	LOODAT	2xdaily	yes	Type 2	Female	19	Middle Eastern or North African (MENA)	64.85	1.52	40.53	5.41	8.57	6.2	NA	18
+U817_week1	U817	week1	Fall2019	LOODAT	2xdaily	yes	Type 1	Female	19	Caucasian/white	52.15	1.63	40.36	16.25	15.24	6.5	NA	7
+U817_week3	U817	week3	Fall2019	LOODAT	2xdaily	yes	Type 1	Female	19	Caucasian/white	52.15	1.63	33.44	10.78	5.46	5.5	NA	7
+U818_week1	U818	week1	Fall2019	LOODAT	2xdaily	yes	Type 2	Female	19	Caucasian/white	58.96	1.68	40.68	7.12	6.7	6.3	NA	13
+U818_week3	U818	week3	Fall2019	LOODAT	2xdaily	yes	Type 2	Female	19	Caucasian/white	58.96	1.68	32.31	14.74	10.64	5.8	NA	13
+U820_week1	U820	week1	Fall2019	none	-	none	Type 4	Female	19	Asian	60.32	1.7	43.14	11.03	20.51	7.2	NA	13
+U820_week3	U820	week3	Fall2019	none	-	none	Type 4	Female	19	Asian	60.32	1.7	36.12	7.89	14.36	NA	NA	13
+U821_week1	U821	week1	Fall2019	none	-	none	Type 2	Female	19	Asian	59.86	1.63	33.22	8.66	7.74	7	NA	14
+U821_week3	U821	week3	Fall2019	none	-	none	Type 2	Female	19	Asian	59.86	1.63	34.3	7.85	4.88	5.8	NA	14
+U822_week1	U822	week1	Fall2019	LOODAT	2xdaily	yes	Type 3	Male	20	Caucasian/white	78.46	1.93	23.46	7.55	12.75	7.7	NA	25
+U822_week3	U822	week3	Fall2019	LOODAT	2xdaily	yes	Type 3	Male	20	Caucasian/white	78.46	1.93	17.06	11.04	8.22	7.3	NA	25
+U823_week1	U823	week1	Fall2019	LOODAT	2xdaily	yes	Type 4	Male	20	Asian	73.92	1.78	23.13	11.05	9.56	NA	NA	19
+U823_week3	U823	week3	Fall2019	LOODAT	2xdaily	yes	Type 4	Male	20	Asian	73.92	1.78	40.76	11.97	14.52	6.3	NA	19
+U824_week1	U824	week1	Fall2019	LOODAT	2xdaily	yes	Type 2	Male	26	Black American	104.31	1.91	32.79	12.07	5.48	6.5	NA	49
+U824_week3	U824	week3	Fall2019	LOODAT	2xdaily	yes	Type 2	Male	26	Black American	104.31	1.91	40.14	10.36	4.68	5.8	NA	49
+U826_week1	U826	week1	Fall2019	LOODAT	2xdaily	yes	Type 3	Female	20	Asian	63.49	1.7	19.78	4.77	14.78	7.3	NA	18
+U826_week3	U826	week3	Fall2019	LOODAT	2xdaily	yes	Type 3	Female	20	Asian	63.49	1.7	24.51	18.58	20.82	6.6	NA	18
+U827_week1	U827	week1	Fall2019	none	-	none	Type 2	Male	19	Caucasian/white	68.03	1.8	47.37	18.75	20.53	6.2	NA	46
+U827_week3	U827	week3	Fall2019	none	-	none	Type 2	Male	19	Caucasian/white	68.03	1.8	29.52	13.05	16.02	6.3	NA	46
+U831_week1	U831	week1	Fall2019	LOODAT	2xdaily	yes	Type 3	Female	19	Caucasian/white	63.49	1.7	21.41	15.24	14.03	6.3	NA	24
+U831_week3	U831	week3	Fall2019	LOODAT	2xdaily	yes	Type 3	Female	19	Caucasian/white	63.49	1.7	26.86	14.29	8.25	6.7	NA	24
+U832_week1	U832	week1	Fall2019	LOODAT	2xdaily	yes	Type 2	Male	18	Asian	79.37	1.83	35.45	12.91	5.25	6.5	NA	27
+U832_week3	U832	week3	Fall2019	LOODAT	2xdaily	yes	Type 2	Male	18	Asian	79.37	1.83	23.92	17.99	8.51	5.5	NA	27
+U835_week1	U835	week1	Fall2019	LOODAT	2xdaily	yes	Type 1	Male	18	Caucasian/white	88.44	1.88	18.64	11.59	10.41	8	NA	32
+U835_week3	U835	week3	Fall2019	LOODAT	2xdaily	yes	Type 1	Male	18	Caucasian/white	88.44	1.88	23.06	11.67	9.8	7.8	NA	32
+U837_week1	U837	week1	Fall2019	LOODAT	2xdaily	yes	Type 2	Female	21	Caucasian/white	56.69	1.7	32.01	14.08	13	6.7	NA	10
+U837_week3	U837	week3	Fall2019	LOODAT	2xdaily	yes	Type 2	Female	21	Caucasian/white	56.69	1.7	21.62	10.13	4.63	6	NA	10
+U839_week1	U839	week1	Fall2019	LOODAT	2xdaily	yes	Type 1	Male	18	Caucasian/white	68.03	1.75	41.18	17.48	NA	NA	NA	18
+U839_week3	U839	week3	Fall2019	LOODAT	2xdaily	yes	Type 1	Male	18	Caucasian/white	68.03	1.75	34.29	13.25	2.17	6	NA	18
+U840_week1	U840	week1	Fall2019	LOODAT	2xdaily	yes	Type 3	Female	18	Caucasian/white	58.96	1.57	29.07	13.25	7.13	7.5	NA	28
+U840_week3	U840	week3	Fall2019	LOODAT	2xdaily	yes	Type 3	Female	18	Caucasian/white	58.96	1.57	23.04	27.6	10.08	7.3	NA	28
+U841_week1	U841	week1	Fall2019	LOODAT	2xdaily	yes	Type 1	Male	19	Caucasian/white	90.7	1.88	28.61	13.43	3.79	6.5	NA	56
+U841_week3	U841	week3	Fall2019	LOODAT	2xdaily	yes	Type 1	Male	19	Caucasian/white	90.7	1.88	40.04	18.81	8.15	6.3	NA	56
+U842_week1	U842	week1	Fall2019	LOODAT	2xdaily	yes	Type 4	Female	20	Caucasian/white	58.96	1.63	30.82	8.63	19.78	7.8	NA	19
+U842_week3	U842	week3	Fall2019	LOODAT	2xdaily	yes	Type 4	Female	20	Caucasian/white	58.96	1.63	28.31	17.82	18.68	6.5	NA	19
+U845_week1	U845	week1	Fall2019	LOODAT	2xdaily	yes	Type 3	Female	20	Caucasian/white	54.42	1.57	28.36	7.3	17.65	8	NA	37
+U845_week3	U845	week3	Fall2019	LOODAT	2xdaily	yes	Type 3	Female	20	Caucasian/white	54.42	1.57	24.98	11.18	3.78	6.5	NA	37
+U846_week1	U846	week1	Fall2019	none	-	none	Type 1	Female	20	Middle Eastern or North African (MENA)	61.22	1.7	24.52	NA	NA	6.5	NA	15
+U846_week3	U846	week3	Fall2019	none	-	none	Type 1	Female	20	Middle Eastern or North African (MENA)	61.22	1.7	NA	NA	NA	6.5	NA	15
+U847_week1	U847	week1	Fall2019	LOODAT	2xdaily	yes	Type 3	Female	19	Caucasian/white	65.76	1.63	34.22	7.48	11.35	6.6	NA	18
+U847_week3	U847	week3	Fall2019	LOODAT	2xdaily	yes	Type 3	Female	19	Caucasian/white	65.76	1.63	26.26	13.09	6.05	6.5	NA	18
+U849_week1	U849	week1	Fall2019	LOODAT	2xdaily	yes	Type 3	Female	21	Caucasian/white	56.69	1.65	39.46	19.89	12.69	5.8	NA	5
+U849_week3	U849	week3	Fall2019	LOODAT	2xdaily	yes	Type 3	Female	21	Caucasian/white	56.69	1.65	43	26.53	2.93	7.3	NA	5
+U851_week1	U851	week1	Fall2019	LOODAT	2xdaily	yes	Type 1	Female	19	Caucasian/white	79.37	1.7	30.92	12.08	9.1	6.3	NA	28
+U851_week3	U851	week3	Fall2019	LOODAT	2xdaily	yes	Type 1	Female	19	Caucasian/white	79.37	1.7	15.55	5.65	3.88	6.8	NA	28
+U854_week1	U854	week1	Fall2019	LOODAT	2xdaily	yes	Type 2	Female	20	Caucasian/white	54.42	1.65	26.1	14.04	13.89	6.5	NA	18
+U854_week3	U854	week3	Fall2019	LOODAT	2xdaily	yes	Type 2	Female	20	Caucasian/white	54.42	1.65	32.12	12.1	9.91	6.2	NA	18
+U858_week1	U858	week1	Fall2019	none	-	none	Type 2	Female	20	Middle Eastern or North African (MENA)	58.96	1.6	28.1	9.05	16.23	7.7	NA	8
+U858_week3	U858	week3	Fall2019	none	-	none	Type 2	Female	20	Middle Eastern or North African (MENA)	58.96	1.6	26.42	8.39	11.06	6.5	NA	8
+U871_week1	U871	week1	Fall2019	none	-	none	Type 1	Male	20	Asian	58.5	1.68	24.57	8.33	2.58	6.5	NA	26
+U871_week3	U871	week3	Fall2019	none	-	none	Type 1	Male	20	Asian	58.5	1.68	26.4	7.19	4.17	7.8	NA	26
+U892_week1	U892	week1	Fall2019	none	-	none	Type 1	Female	19	Middle Eastern or North African (MENA)	86.17	1.8	31.11	13.79	18.93	6.7	NA	53
+U892_week3	U892	week3	Fall2019	none	-	none	Type 1	Female	19	Middle Eastern or North African (MENA)	86.17	1.8	58.79	30.61	9.71	6.5	NA	53
+U894_week1	U894	week1	Fall2019	none	-	none	Type 3	Male	20	Middle Eastern or North African (MENA)	86.17	1.73	38.73	9.29	27.65	6.5	NA	8
+U897_week1	U897	week1	Fall2019	none	-	none	Type 1	Female	19	Middle Eastern or North African (MENA)	54.42	1.6	49.63	24.85	10.32	6.3	NA	18
+U897_week3	U897	week3	Fall2019	none	-	none	Type 1	Female	19	Middle Eastern or North African (MENA)	54.42	1.6	49.79	12.59	13.02	6.3	NA	18
