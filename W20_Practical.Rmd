@@ -1,0 +1,199 @@
+---
+title: "W20 Bio201 Practical"
+author: "Kristi Gdanetz MacCready"
+date: "3/11/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_knit$set(root.dir = "~/Documents/Bio201_W20/Practical/")
+```
+
+# Load Packages
+```{r include=FALSE}
+library(vegan)
+library(tidyverse)
+library(readxl)
+library(broom)
+library(cowplot)
+library(phyloseq)
+set.seed(7)
+source("miseqR.R")
+```
+
+# Introduction
+We have observed this semester that consumption of a starch supplement causes changes in SCFA concentrations, pH, and sometimes breath gases. We also determined there is sometimes a change in richness when a supplement is consumed, but not an obvious change in community composition (beta diversity). One possible explanation for this lack of consistent change in community composition is that each individual has a different starting community type, also called enterotypes. For the practical each student will analyze a different enterotype to determine if that community type responds to the potato starch supplements. You have 48 hours t complete this assignment.
+
+Statistics generated from tests should be entered as comments in the code blocks containing the statistical test functions. All subsetted data frames should be saved to a curated_data repository on GitHub. All plots generated should be saved to a figures repository, and should have neatly labelled axes, legends, and titles, as appropriate. Completed Rmd and HTML-knitted code should be uploaded to your GitHub repository. Verify all files on GitHub are viewable, corrupted files will not count as completed assignments. Submit the URL of your repository to Canvas prior to assignment deadline. Late assignments will be deducted 10% (3 points) each day. Any class resources may be used to assist in completing this assignment, but should be completed *individually*, this is not a group assignment. If there is any suspicion of copying (including self-plagiarizing) or cheating, all involved parties will receive a zero.
+
+# Load Data
+Import the sample measurements and data. Based on the number of samples per participant, are the data in this file from individual samples or weekly averages?  
+```{r}
+# name: sample_df
+```
+
+Import the shared table.
+```{r}
+#name: shared_m
+```
+
+Import the taxonomy table.
+```{r}
+#name: taxa_m
+```
+
+Create a phyloseq object, subset for your assigned enterotype. 
+```{r}
+# name the result: physq_enterotype_number (e.g., physq_4)
+```
+
+
+# Question 1
+Using the sample measurement data frame, determine if any of the short chain fatty acids increased during consumption of potato starch twice a day. Remember to exclude Winter 2015 participants when analyzing SCFA data. 
+```{r}
+# data formatting, if needed
+```
+### Plot
+```{r}
+# plot: name plot_q1
+```
+### Assumptions
+```{r}
+# check assumptions
+```
+### Stat test
+```{r}
+# statistical test(s)
+```
+
+< write conclusions here > 
+
+
+# Question 2 
+Using the sample measurement data frame, determine if the pH decreased during consumption of potato starch twice a day. Do your conclusions change if change in pH is analyzed for each brand (BRMPS or LOODAT) of potato starch individually? 
+```{r}
+# data formatting, if needed
+```
+
+### Plot
+```{r}
+
+```
+
+### Assumptions
+```{r}
+
+```
+### Stat test
+```{r}
+
+```
+
+< write conclusions here > 
+
+
+# Question 3
+What are the demographics (age, sex, race/ethnicity, average dietary fiber) of the participants consuming each brand of potato starch in your enterotype group? Use week 1 data only. Calculate mean and standard deviations when applicable. Use headings, add plain text descriptions or comments, or add more code chunks to keep code organized. 
+```{r}
+
+```
+
+<type results in Rmd table>
+
+
+# Question 4
+Using the phyloseq object, determine if richness changed in your entrerotype group during consumption of potato starch. Conduct separate comparisons for each brand and frequency. Use comments to keep chunks of code organized.  
+
+### BRMPS 1xdaily
+```{r}
+
+```
+
+### BRMPS 2xdaily 
+```{r}
+
+```
+
+### LOODAT 1xdaily
+```{r}
+
+```
+
+### LOODAT 2xdaily
+```{r}
+
+```
+
+<write conclusions here>
+
+Combine all four plots into one multi-panel figure.
+```{r}
+# name final plot plot_q4
+```
+
+
+# Question 5
+Determine if community composition changed in your entrerotype group during consumption of potato starch. Conduct separate comparisons for each brand and frequency. 
+### BRMPS 1xdaily
+```{r}
+# format, subset, ordinate
+```
+
+```{r}
+# plot 
+```
+
+```{r}
+# test(s) 
+```
+
+### BRMPS 2xdaily 
+```{r}
+# format, subset, ordinate
+```
+
+```{r}
+# plot 
+```
+
+```{r}
+# test(s) 
+```
+
+### LOODAT 1xdaily
+```{r}
+# format, subset, ordinate
+```
+
+```{r}
+# plot 
+```
+
+```{r}
+# test(s) 
+```
+
+### LOODAT 2xdaily
+```{r}
+# format, subset, ordinate
+```
+
+```{r}
+# plot 
+```
+
+```{r}
+# test(s) 
+```
+
+<write conclusions here>
+
+Combine all four plots into one multi-panel figure.
+```{r}
+# name final plot plot_q5
+```
+
+
+-----
+end
