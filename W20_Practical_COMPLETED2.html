@@ -1,0 +1,1208 @@
+---
+title: "W20 Bio201 Practical"
+author: "Mary Kate Campbell"
+date: "3/11/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_knit$set(root.dir = "~/Documents/UMBio201/Practical/")
+```
+
+# Load Packages 
+```{r include=FALSE}
+library(vegan)
+library(tidyverse)
+library(readxl)
+library(broom)
+library(cowplot)
+library(phyloseq)
+set.seed(7)
+source("miseqR.R")
+```
+
+# Introduction
+We have observed this semester that consumption of a starch supplement causes changes in SCFA concentrations, pH, and sometimes breath gases. We also determined there is sometimes a change in richness when a supplement is consumed, but not an obvious change in community composition (beta diversity). One possible explanation for this lack of consistent change in community composition is that each individual has a different starting community type, also called enterotypes. For the practical each student will analyze a different enterotype to determine if that community type responds to the potato starch supplements. You have 48 hours t complete this assignment.
+
+Statistics generated from tests should be entered as comments in the code blocks containing the statistical test functions. All subsetted data frames should be saved to a curated_data repository on GitHub. All plots generated should be saved to a figures repository, and should have neatly labelled axes, legends, and titles, as appropriate. Completed Rmd and HTML-knitted code should be uploaded to your GitHub repository. Verify all files on GitHub are viewable, corrupted files will not count as completed assignments. Submit the URL of your repository to Canvas prior to assignment deadline. Late assignments will be deducted 10% (3 points) each day. Any class resources may be used to assist in completing this assignment, but should be completed *individually*, this is not a group assignment. If there is any suspicion of copying (including self-plagiarizing) or cheating, all involved parties will receive a zero.
+
+# Load Data
+Import the sample measurements and data. Based on the number of samples per participant, are the data in this file from individual samples or weekly averages?  Based on the number of samples per participantsk, the data in this file is of weekly averages 
+```{r}
+# name: sample_df
+sample_df <- read_delim("raw_data/practical_samples.txt", 
+                            delim = "\t", escape_double = FALSE, 
+                            trim_ws = TRUE, 
+                            col_types = cols(
+                                          id = col_character(),
+                                          participant_id = col_character(),
+                                          study_week = col_character(),
+                                          semester = col_character(),
+                                          supplement_consumed = col_character(),
+                                          frequency = col_character(),
+                                          quantity_compliant = col_character(),
+                                          enterotype = col_character(),
+                                          sex = col_character(),
+                                          age = col_double(),
+                                          race_ethnicity = col_character(),
+                                          weight_kg = col_double(),
+                                          height_meters = col_double(),
+                                          acetate_mmol_kg = col_double(),
+                                          butyrate_mmol_kg = col_double(),
+                                          propionate_mmol_kg = col_double(),
+                                          ph = col_double(),
+                                          bristol = col_double(),
+                                          fiber_g = col_double()))
+
+```
+
+Import the shared table.
+```{r}
+#name: shared_m
+shared_m <- read_delim("raw_data/practical_shared.txt",
+                            delim = "\t", escape_double = FALSE, 
+                            trim_ws = TRUE, na=c("NA"),
+                            col_types = list()) %>% 
+  separate(col = id, 
+           into = c("participant_id", "sample_number"),
+           sep = "_", extra = "drop") %>% 
+  # combine columns to make new sample id column 
+  mutate(sample_id = paste(participant_id, sample_number, sep = "_")) %>% 
+  # drop extra columns, reorder columns
+  select(sample_id, starts_with("Otu")) %>%
+  # drop control samples from sequencing
+  filter(str_detect(sample_id, "^U")) %>%
+  # remove duplicate sample ids
+  distinct(sample_id, .keep_all = TRUE) %>% 
+  # sample IDs need to be made into row names
+  column_to_rownames(var = "sample_id") %>% 
+  # convert data frame to matrix object
+  as.matrix() %>% 
+  # convert to phyloseq object 
+  otu_table(., taxa_are_rows = FALSE)  
+```
+
+Import the taxonomy table.
+```{r}
+#name: taxa_m
+taxa_m <- read_delim("raw_data/practical_taxonomy.txt",
+                            delim = "\t", escape_double = FALSE, 
+                            trim_ws = TRUE, na=c("NA")) %>%
+  # sequence variants (OTUs) need to be made into row names 
+  column_to_rownames(var = "ESV") %>% 
+  as.matrix() %>%
+  # convert to phyloseq object 
+  tax_table()  
+```
+
+Create a phyloseq object, subset for your assigned enterotype. 
+```{r}
+# name the result: physq_enterotype_number (e.g., physq_4)
+samples_m <- sample_df %>%  
+  # make all column names lower case
+  rename_all(tolower) %>% 
+  # remove duplicate sample ids
+  distinct(., id, .keep_all = TRUE) %>%  
+  # sample IDs need to be made into row names
+  column_to_rownames(var = "id") %>% 
+  # specify type of phyloseq object
+  sample_data()
+
+physq_1 <- phyloseq(shared_m, taxa_m, samples_m) %>% 
+  subset_samples(., quantity_compliant != "no")
+```
+
+
+# Question 1
+Using the sample measurement data frame, determine if any of the short chain fatty acids increased during consumption of potato starch twice a day. Remember to exclude Winter 2015 participants when analyzing SCFA data. ** do a separate test for each SCFA ** 
+** i think im doing this wrong ** 
+** quantitative variable** 
+```{r}
+#data formatting, if needed
+acetate_df <- sample_df %>%  
+  select(-starts_with("but"), -starts_with("pro"), 
+         -starts_with("pH"), -starts_with("bristol"), 
+         -starts_with("fib"), -starts_with("height"),
+         -starts_with("weight"), -starts_with("enter"),
+         -starts_with("sex"), -starts_with("age"),
+         -starts_with("race"),
+         -starts_with("id")) %>% 
+  filter(frequency == "2xdaily", 
+         study_week == "week1" | study_week == "week3", 
+         supplement_consumed == "BRMPS" | supplement_consumed == "LOODAT",
+         quantity_compliant != "no",
+         semester != "Winter2015")
+
+acetate_df 
+
+propionate_df <- sample_df %>%  
+  select(-starts_with("acet"), -starts_with("but"), 
+         -starts_with("pH"), -starts_with("bristol"), 
+         -starts_with("fib"), -starts_with("height"),
+         -starts_with("weight"), -starts_with("enter"),
+         -starts_with("sex"), -starts_with("age"),
+         -starts_with("race"),
+         -starts_with("id")) %>%  
+  filter(frequency == "2xdaily", 
+         study_week == "week1" | study_week == "week3", 
+         supplement_consumed == "BRMPS" | supplement_consumed == "LOODAT",
+         quantity_compliant != "no",
+         semester != "Winter2015")
+
+butyrate_df <- sample_df %>%  
+  select(-starts_with("acet"), -starts_with("prop"), 
+         -starts_with("pH"), -starts_with("bristol"), 
+         -starts_with("fib"), -starts_with("height"),
+         -starts_with("weight"), -starts_with("enter"),
+         -starts_with("sex"), -starts_with("age"),
+         -starts_with("race"),
+         -starts_with("id")) %>%  
+  filter(frequency == "2xdaily", 
+         study_week == "week1" | study_week == "week3", 
+         supplement_consumed == "BRMPS" | supplement_consumed == "LOODAT",
+         quantity_compliant != "no",
+         semester != "Winter2015")
+  
+
+```
+### Plot
+```{r}
+# plot: name plot_q1
+acetate_plot <- acetate_df %>% 
+   ggplot(aes(x = study_week, 
+             y = acetate_mmol_kg, 
+             color = study_week), 
+         frequency) + 
+  geom_violin() + geom_jitter() + 
+  facet_grid(~frequency) + 
+  xlab(NULL) + 
+  ylab("Acetate (mmol/kg)") + 
+  theme(legend.position = "none")# acetate plot
+
+acetate_plot
+
+propionate_plot <- propionate_df %>%
+   ggplot(aes(x = study_week, 
+             y = propionate_mmol_kg, 
+             color = study_week), 
+         frequency) + 
+  geom_violin() + geom_jitter() + 
+  facet_grid(~frequency) + 
+  xlab(NULL) + 
+  ylab("Propionate (mmol/kg)") + 
+  theme(legend.position = "none")# propionate plot
+
+propionate_plot
+
+butyrate_plot <- butyrate_df %>%  
+    ggplot(aes(x = study_week, 
+             y = butyrate_mmol_kg, 
+             color = study_week), 
+         frequency) + 
+  geom_violin() + geom_jitter() + 
+  facet_grid(~frequency) + 
+  xlab(NULL) + 
+  ylab("Butyrate (mmol/kg)") + 
+  theme(legend.position = "none")# Butyrate plot
+
+butyrate_plot
+  
+  
+
+```
+### Assumptions
+```{r}
+# check acetate assumptions
+acet_wk1_2x <- acetate_df %>%
+  filter(study_week == "week1") %>% 
+  rename(acetate_wk1 = acetate_mmol_kg) %>% 
+  select(-study_week) %>%
+  drop_na()
+
+acet_wk3_2x <- acetate_df %>% 
+  filter(study_week == "week3") %>% 
+  rename(acetate_wk3 = acetate_mmol_kg) %>% 
+  select(-study_week) %>% 
+  drop_na()
+  
+acet_df2 <- inner_join(acet_wk1_2x, acet_wk3_2x)
+
+acet_df2 %>% 
+  group_by(supplement_consumed) %>% #set groups to what we are comparing
+  summarise(sample_size = n()) #use summarise() and n() to get counts of ppl in each group
+
+#normality check 
+  shapiro.test(acet_df2$acetate_wk1) 
+  ggplot(acet_df2, aes(x = acetate_wk1)) + geom_histogram()
+  
+  shapiro.test(acet_df2$acetate_wk3)
+  ggplot(acet_df2, aes(x = acetate_wk3)) + geom_histogram()
+  
+    #Our p-value for the shapiro test run on the week one acetate concentrations of 7.058e-06 is less than our significance level of 0.05, we cannot assume normality. Additionally, our p-value for the shapiro test run on week three acetate concentrations of 0.0003055 suggests that our data does not follow a normal distribution. Therefore, we must check to see if it deviates from the normal with a histogram. 
+  
+qqnorm(acet_df2$acetate_wk1); qqline(acet_df2$acetate_wk1) #deviates from the line, but our sample size = 42 which is greater than 30 
+
+qqnorm(acet_df2$acetate_wk3); qqline(acet_df2$acetate_wk3) #deviates from the line too much cant assume normality, but our sample size = 42 which is greater than 30 
+
+```
+```{r}
+#check assumptions for propionate 
+prop_wk1_2x <- propionate_df %>%
+  filter(study_week == "week1") %>% 
+  rename(propionate_wk1 = propionate_mmol_kg) %>% 
+  select(-study_week) %>%
+  drop_na()
+
+prop_wk3_2x <- propionate_df %>% 
+  filter(study_week == "week3") %>% 
+  rename(propionate_wk3 = propionate_mmol_kg) %>% 
+  select(-study_week) %>% 
+  drop_na()
+
+prop_df2 <- inner_join(prop_wk1_2x, prop_wk3_2x)
+
+prop_df2 %>% 
+  group_by(supplement_consumed) %>% #set groups to what we are comparing
+  summarise(sample_size = n()) #use summarise() and n() to get counts of ppl in each group
+
+#normality check 
+  shapiro.test(prop_df2$propionate_wk1) 
+  ggplot(prop_df2, aes(x = propionate_wk1)) + geom_histogram()
+  
+  shapiro.test(prop_df2$propionate_wk3)
+  ggplot(prop_df2, aes(x = propionate_wk3)) + geom_histogram()
+  
+#Our p-value for the shapiro test run on the week one propionate concentrations of 0.3942 is greater than our significance level of 0.05, we can assume normality. However, our p-value for the shapiro test run on week three propionate concentrations of 0.04498 is less than our significance level suggests that our data does not follow a normal distribution. Therefore, we must check to see if it deviates from the normal with a histogram. 
+  
+qqnorm(prop_df2$propionate_wk3); qqline(prop_df2$propionate_wk3) #follows line well, so can assume normal. Also our sample size = 41 which is greater than 30.
+
+
+```
+```{r}
+# check butyrate assumptions
+but_wk1_2x <- butyrate_df %>%
+  filter(study_week == "week1") %>% 
+  rename(butyrate_wk1 = butyrate_mmol_kg) %>% 
+  select(-study_week) %>%
+  drop_na()
+
+  but_wk3_2x <- butyrate_df %>% 
+  filter(study_week == "week3") %>% 
+  rename(butyrate_wk3 = butyrate_mmol_kg) %>% 
+  select(-study_week) %>% 
+  drop_na()
+
+but_df2 <- inner_join(but_wk1_2x, but_wk3_2x)
+
+but_df2 %>% 
+  group_by(supplement_consumed) %>% #set groups to what we are comparing
+  summarise(sample_size = n()) #use summarise() and n() to get counts of ppl in each group
+
+#normality check 
+  shapiro.test(but_df2$butyrate_wk1) 
+  ggplot(but_df2, aes(x = butyrate_wk1)) + geom_histogram()
+  
+#Our p-value for the shapiro test run on the week one butyrate concentrations of 0.4526 is greater than our significance level of 0.05, we can assume normality. However, our p-value for the shapiro test run on week three butyrate concentrations of 3.655e-05 is less than our significance level suggests that our data does not follow a normal distribution. Therefore, we must check to see if it deviates from the normal with a histogram. 
+  
+  shapiro.test(but_df2$butyrate_wk3)
+  ggplot(but_df2, aes(x = butyrate_wk3)) + geom_histogram()
+
+qqnorm(but_df2$butyrate_wk3); qqline(but_df2$butyrate_wk3) #follows the line well, so can assume normality. and our sample size = 44 which is greater than 30. 
+
+```
+```{r}
+#variance test for acetate 
+var.test(x = acet_df2$acetate_wk1, 
+         y = acet_df2$acetate_wk3, 
+         alternative = "two.sided") #p-value = 0.6319 > 0.05 which indicates that variances are equal 
+var.test(x = but_df2$butyrate_wk1, 
+         y = but_df2$butyrate_wk3, 
+         alternative = "two.sided") #p-value = 0.001596 < 0.05 which indicates that variances are not equal 
+var.test(x = prop_df2$propionate_wk1, 
+         y = prop_df2$propionate_wk3, 
+         alternative = "two.sided") #p-value = 0.1525 > 0.05 which indicates that variances are equal 
+
+```
+The histogram shows a rough bell curve, and the qqplot does not show a lot of deviation from the line; in combination with our large sample size of 63 we are okay with proceeding with a t-test.
+
+### Stat test
+```{r}
+# nonparametric Mann-Whitney t-test for acetate because variances are equal, but not normal. 
+wilcox.test(x = acet_df2$acetate_wk1, 
+            y = acet_df2$acetate_wk3, 
+            paired = TRUE,
+            alternative = "less")
+
+#paired t-test for butyrate because variances are not equal but it is normally distributed 
+
+t.test(x = but_df2$butyrate_wk1, 
+       y = but_df2$butyrate_wk3, 
+       var.equal = FALSE, #we set this to false based on the result of var.test() above 
+       paired = TRUE, #this must be TRUE because the samples are NOT independent 
+       alternative = "less") 
+
+#paired t-test for propionate because variances are equal and it is normally distributed 
+t.test(x = prop_df2$propionate_wk1, 
+       y = prop_df2$propionate_wk3, 
+       var.equal = TRUE, #we set this to ture based on the result of var.test() above 
+       paired = TRUE, #this must be TRUE because the samples are NOT independent 
+       alternative = "less") 
+
+```
+
+Based on our statistical tests we can only conclude that butyrate concentrations increased during consumption of potato starch twice a day. This is because after conducting a paired t-test, our p-value = 0.006315 < significance level = 0.05. Therefore, we can conclude that there is an increase in butyrate concentration between week 3 and week 1. We cannot conclude that propionate or acetate concentrations increased during consumption of potato starch twice a day. For acetate, we conducted nonparametric t-test and our p-value = 0.3927 > our significance level = 0.05. Therefore, we fail to reject our null hypothesis, we do not have enough evidence to suggest that acetate concentrations increased. For propionate, we conducted a paired t-test and our p-value = 0.9613 > our significance level = 0.05. Therefore, we fail to reject our null hypothesis, there is not enough evidence to suggest that propionate concentrations increased. 
+
+
+# Question 2 
+Using the sample measurement data frame, determine if the pH decreased during consumption of potato starch twice a day. Do your conclusions change if change in pH is analyzed for each brand (BRMPS or LOODAT) of potato starch individually? 
+
+compare pH levels of those who consumed potato starch twice a day at week 3 vs week 1. then compare the pH levels by BRMPS or LOODAT 
+```{r}
+#data formatting 
+ph_df <- sample_df %>%
+   select(-starts_with("but"), -starts_with("pro"), 
+         -starts_with("acet"), -starts_with("bristol"), 
+         -starts_with("fib"), -starts_with("height"),
+         -starts_with("weight"), -starts_with("enter"),
+         -starts_with("sex"), -starts_with("age"),
+         -starts_with("race"),
+         -starts_with("id")) %>% 
+  filter(frequency == "2xdaily", 
+         study_week == "week1" | study_week == "week3", 
+         supplement_consumed == "BRMPS" | supplement_consumed == "LOODAT",
+         quantity_compliant != "no") 
+
+brmps_ph_df <- ph_df %>%  
+  filter(supplement_consumed == "BRMPS")
+
+lood_ph_df <- ph_df %>%  
+  filter(supplement_consumed == "LOODAT")
+  
+```
+
+### Plot
+```{r}
+ph_plot <- ph_df %>%  
+  ggplot(aes(x = study_week, 
+             y = ph, 
+             color = study_week), 
+         frequency) + 
+  geom_violin() + geom_jitter() + 
+  facet_grid(~frequency) + 
+  xlab(NULL) + 
+  ylab("pH") + 
+  theme(legend.position = "none")# ph plot
+
+ph_plot
+
+  
+```
+
+### Assumptions
+```{r}
+# check pH assumptions
+ph_wk1_2x <- ph_df %>%
+  filter(study_week == "week1") %>% 
+  rename(ph_wk1 = ph) %>% 
+  select(-study_week) %>%
+  drop_na()
+
+ph_wk3_2x <- ph_df %>% 
+  filter(study_week == "week3") %>% 
+  rename(ph_wk3 = ph) %>% 
+  select(-study_week) %>% 
+  drop_na()
+  
+ph_df2 <- inner_join(ph_wk1_2x, ph_wk3_2x)
+
+ph_df2 %>% 
+  group_by(supplement_consumed) %>% #set groups to what we are comparing
+  summarise(sample_size = n()) #use summarise() and n() to get counts of ppl in each group
+
+#normality check 
+  shapiro.test(ph_df2$ph_wk1) 
+  ggplot(ph_df2, aes(x = ph_wk1)) + geom_histogram() #p-value = 0.01695 
+  
+  shapiro.test(ph_df2$ph_wk3)
+  ggplot(ph_df2, aes(x = ph_wk3)) + geom_histogram() #p-value = 0.1624
+  
+  qqnorm(ph_df2$ph_wk1); qqline(ph_df2$ph_wk1) #does not follow the line, so not normal --> run nonparametric t -test 
+  
+#equal variance check 
+  var.test(x = ph_df2$ph_wk1, 
+         y = ph_df2$ph_wk3, 
+         alternative = "two.sided") #p-value = 0.5117 > 0.05 which indicates that variances are equal 
+
+```
+### Stat test
+```{r}
+# nonparametric Mann-Whitney t-test for acetate because variances are equal, but not normal. 
+wilcox.test(x = ph_df2$ph_wk1, 
+            y = ph_df2$ph_wk3, 
+            paired = TRUE,
+            alternative = "greater")
+```
+
+Because our p-value = 0.004215 < 0.05, we reject our null hypothesis in favor of the alternative. There is sufficient evidence to suggest that pH decreased during consumption of potato starch twice a day. Our conclusions would change if change in pH was analyzed for each brand (BRMPS or LOODAT) of potato starch individually because when we compare the pH between weeks 1 and week 3 for each brand of potato starch, there is no pH measurements for those that consumed BRMPS. Therefore, our conclusion should really be that pH decreases during consumption of LOODAT twice a day because there is no data for BRMPS, but that information is only known when we stratify our data more. 
+
+
+# Question 3
+What are the demographics (age, sex, race/ethnicity, average dietary fiber) of the participants consuming each brand of potato starch in your enterotype group? Use week 1 data only. Calculate mean and standard deviations when applicable. Use headings, add plain text descriptions or comments, or add more code chunks to keep code organized. 
+** use mean and standard deviation for age, and average dietary fiber 
+** find counts for sex & race/ethnicity 
+
+### AGE 
+```{r}
+#data formatting  
+age_df <- sample_df %>%  
+  select(-starts_with("but"), -starts_with("pro"), 
+         -starts_with("pH"), -starts_with("bristol"), 
+         -starts_with("fib"), -starts_with("height"),
+         -starts_with("acet"),
+         -starts_with("weight"),
+         -starts_with("sex"),
+         -starts_with("race"),
+         -starts_with("id")) %>% 
+  filter(enterotype == "Type 1",
+         study_week == "week1",
+         supplement_consumed == "BRMPS" | supplement_consumed == "LOODAT") 
+
+# average age and sd of those who consumed LOODAT 
+mean(subset(age_df, supplement_consumed == "LOODAT")$age) #mean = 18.63636 years
+sd(subset(age_df, supplement_consumed == "LOODAT")$age) #sd = 0.674199 year
+
+
+# average age and sd of those who consumed BRMPS 
+mean(subset(age_df, supplement_consumed == "BRMPS")$age) #mean = 19.25 years
+sd(subset(age_df, supplement_consumed == "BRMPS")$age) #sd = 0.9261982 year
+
+mean(age_df$age) #average age of all participants in enterotype 1 
+
+```
+| | Mean | Standard Deviation |
+|:-----:|:-----:|:-----:|:-----:|
+| BRMPS | 18.63636 | 0.674199 |
+| LOODAT | 19.25  | 0.9261982 |
+
+### SEX 
+```{r}
+sex_df <- sample_df %>% 
+  select(-starts_with("but"), -starts_with("pro"), 
+         -starts_with("pH"), -starts_with("bristol"), 
+         -starts_with("fib"), -starts_with("height"),
+         -starts_with("acet"),
+         -starts_with("weight"),
+         -starts_with("race"),
+         -starts_with("age"),
+         -starts_with("id")) %>% 
+    filter(enterotype == "Type 1",
+         study_week == "week1",
+         supplement_consumed == "BRMPS" | supplement_consumed == "LOODAT") 
+
+sex2_df <- sex_df %>% 
+group_by(supplement_consumed, sex) %>%  
+summarise(Counts = n())
+
+sex2_df 
+
+sex_tab <- with(sex_df, table(supplement_consumed, sex))
+sex_tab 
+
+
+```
+| | MALE | FEMALE |
+|:-----:|:-----:|:-----:|:-----:|
+| BRMPS | 18 | 34 |
+| LOODAT | 4  | 7 |
+
+### RACE/ETHNICITY 
+```{r}
+race_df <- sample_df %>%  
+  select(-starts_with("but"), -starts_with("pro"), 
+         -starts_with("pH"), -starts_with("bristol"), 
+         -starts_with("fib"), -starts_with("height"),
+         -starts_with("acet"),
+         -starts_with("weight"),
+         -starts_with("sex"),
+         -starts_with("age"),
+         -starts_with("id")) %>% 
+    filter(enterotype == "Type 1",
+         study_week == "week1",
+         supplement_consumed == "BRMPS" | supplement_consumed == "LOODAT") %>% 
+  mutate(race_ethnicity = recode(race_ethnicity, "Asian or Pacific Islander" = "Asian")) 
+
+race2_df <- race_df %>% 
+  drop_na(race_ethnicity) %>% 
+  group_by(supplement_consumed, race_ethnicity) %>%  
+  summarise(Counts = n())
+
+race2_df 
+
+race_tab <- with(race_df, table(race_ethnicity, supplement_consumed))
+race_tab 
+
+
+```
+| | BRMPS | LOODAT |
+|:-----:|:-----:|:-----:|:-----:|
+| 2 or more ethnicities | 7 | 0 |
+| Asian | 8  | 1 |
+| Black  American | 5  | 1 |
+| Caucasian/white | 23  | 9 |
+| Latinx or Hispanic | 3 | 0|
+| Middle Eastern or North African (MENA) | 4  | 0 |
+| Other | 2  | 0 |
+
+### AVERAGE DIETARY FIBER 
+```{r}
+fiber_df <- sample_df %>% 
+  select(-starts_with("but"), -starts_with("pro"), 
+         -starts_with("pH"), -starts_with("bristol"), 
+         -starts_with("age"), -starts_with("height"),
+         -starts_with("acet"),
+         -starts_with("weight"),
+         -starts_with("sex"),
+         -starts_with("race"),
+         -starts_with("id")) %>% 
+  filter(enterotype == "Type 1",
+         study_week == "week1",
+         supplement_consumed == "BRMPS" | supplement_consumed == "LOODAT") %>% 
+  drop_na(fiber_g)
+# average age and sd of those who consumed LOODAT 
+mean(subset(fiber_df, supplement_consumed == "LOODAT")$fiber_g) #mean = 21.454555 grams
+sd(subset(fiber_df, supplement_consumed == "LOODAT")$fiber_g) #sd = 14.39697 grams
+
+# average age and sd of those who consumed BRMPS 
+mean(subset(fiber_df, supplement_consumed == "BRMPS")$fiber_g) #mean = 17.44681 grams
+sd(subset(fiber_df,supplement_consumed == "BRMPS")$fiber_g) #sd = 7.776242 grams
+
+
+
+```
+| | Mean | Standard Deviation |
+|:-----:|:-----:|:-----:|:-----:|
+| BRMPS | 21.45455 | 14.39697 |
+| LOODAT | 17.44681  | 7.776242 |
+
+# Question 4
+Using the phyloseq object, determine if richness changed in your entrerotype group during consumption of potato starch. Conduct separate comparisons for each brand and frequency. Use comments to keep chunks of code organized.  
+
+
+```{r}
+mks_data <- sample_df %>% 
+  select(id, participant_id, study_week, semester, supplement_consumed, frequency, race_ethnicity, quantity_compliant, enterotype) %>% 
+  mutate(race_ethnicity = recode(race_ethnicity, "Asian or Pacific Islander" = "Asian")) %>% 
+  filter(quantity_compliant != "no", 
+         study_week == "week1" | study_week == "week3",
+         race_ethnicity != "Other" & race_ethnicity != "Prefer not to say",
+        )
+```
+### BRMPS 1xdaily
+```{r}
+#data formatting 
+brmps_1x_df <- physq_1 %>% 
+  estimate_richness(., split = TRUE, measures = c("Observed")) %>%  
+  rownames_to_column(var = "id") %>% 
+  inner_join(mks_data, by = "id") %>%  
+  rename(richness = Observed) %>%
+  group_by(participant_id, study_week, semester, 
+           frequency, supplement_consumed, race_ethnicity, enterotype) %>%
+  summarise(avg_richness = round(mean(richness), digits = 0)) %>% 
+  filter(frequency == "1xdaily",
+         supplement_consumed == "BRMPS")
+
+brmps_1x_df
+
+```
+```{r}
+#plots 
+brmps_1_rich1 <- physq_1 %>% 
+  plot_richness(., "study_week", measures = c("Observed")) +
+  facet_grid("enterotype") +
+  ylab("Richness (Observed ESVs)") + xlab(NULL)
+
+brmps_1_rich2plot <- brmps_1_rich1 +  
+  geom_violin(aes(color = study_week)) + #add violin in color
+  geom_jitter(aes(color = study_week)) +  #add individual points in color 
+  theme(legend.position = "none") +
+  ggtitle("BRMPS 1xdaily by Enterotype")
+
+brmps_1_rich2plot
+```
+
+```{r}
+#tests for BRMPS 1x daily 
+bartlett.test(avg_richness ~ enterotype, data = brmps_1x_df) #p-value = 0.00158 < 0.05. so variances are not good 
+
+#sample sizes 
+brmps_1x_df %>%  
+  group_by(enterotype) %>%  
+  summarise(sample_size = n())
+
+brmps1_ent1 <- brmps_1x_df %>%  
+  filter(enterotype == "Type 1")
+  shapiro.test(brmps1_ent1$avg_richness) #p-value = 0.6399
+
+brmps1_ent2 <- brmps_1x_df %>%  
+  filter(enterotype == "Type 2")
+  shapiro.test(brmps1_ent2$avg_richness) #p-value = 0.9659
+  
+brmps1_ent3 <- brmps_1x_df %>% 
+  filter(enterotype == "Type 3")
+  shapiro.test(brmps1_ent3$avg_richness) #p-value = 0.001258
+  
+brmps1_ent4 <- brmps_1x_df %>% 
+  filter(enterotype == "Type 4")
+  shapiro.test(brmps1_ent4$avg_richness) #p-value = 0.7208
+  
+brmps1_aov_results <- aov(avg_richness ~ enterotype, data = brmps_1x_df)
+summary(brmps1_aov_results)
+  
+```
+
+### BRMPS 2xdaily 
+```{r}
+brmps_2x_df <- physq_1 %>% 
+  estimate_richness(., split = TRUE, measures = c("Observed")) %>%  
+  rownames_to_column(var = "id") %>% 
+  inner_join(mks_data, by = "id") %>%  
+  rename(richness = Observed) %>%
+  group_by(participant_id, study_week, semester, 
+           frequency, supplement_consumed, race_ethnicity, enterotype) %>%
+  summarise(avg_richness = round(mean(richness), digits = 0)) %>% 
+  filter(frequency == "2xdaily",
+         supplement_consumed == "BRMPS")
+
+brmps_2x_df
+
+
+```
+
+```{r}
+brmps_2_rich1 <- physq_1 %>% 
+  plot_richness(., "study_week", measures = c("Observed")) +
+  facet_grid("enterotype") +
+  ylab("Richness (Observed ESVs)") + xlab(NULL)
+
+brmps_2_rich2plot <- brmps_2_rich1 +  
+  geom_violin(aes(color = study_week)) + #add violin in color
+  geom_jitter(aes(color = study_week)) +  #add individual points in color 
+  theme(legend.position = "none") +
+  ggtitle("BRMPS 2xdaily by Enterotype")
+
+brmps_2_rich2plot
+```
+
+```{r}
+#tests for BRMPS 2x daily 
+bartlett.test(avg_richness ~ enterotype, data = brmps_2x_df) #p-value = 0.8546 > 0.05. so variances are good 
+
+#sample sizes 
+brmps_2x_df %>%  
+  group_by(enterotype) %>%  
+  summarise(sample_size = n())
+
+
+brmps2_ent1 <- brmps_2x_df %>%  
+  filter(enterotype == "Type 1")
+  shapiro.test(brmps2_ent1$avg_richness) #p-value = 0.007811
+  
+brmps2_ent2 <- brmps_2x_df %>% 
+  filter(enterotype == "Type 2")
+  shapiro.test(brmps2_ent2$avg_richness) #p-value = 0.8586
+
+brmps2_ent3 <- brmps_2x_df %>% 
+  filter(enterotype == "Type 3")
+  shapiro.test(brmps2_ent3$avg_richness) #p-value = 0.6314
+  
+#brmps2_ent4 <- brmps_2x_df %>% 
+  #filter(enterotype == "Type 4")
+  #shapiro.test(brmps2_ent4$avg_richness) filter this out because sample size is not large enough 
+  
+brmps_2x_df2 <- brmps_2x_df %>%  
+  filter(enterotype != "Type 4")
+  
+brmps2_aov_results <- aov(avg_richness ~ enterotype, data = brmps_2x_df2)
+summary(brmps2_aov_results)
+  
+
+```
+
+### LOODAT 1xdaily
+```{r}
+lood_1x_df <- physq_1 %>% 
+  estimate_richness(., split = TRUE, measures = c("Observed")) %>%  
+  rownames_to_column(var = "id") %>% 
+  inner_join(mks_data, by = "id") %>%  
+  rename(richness = Observed) %>%
+  group_by(participant_id, study_week, semester, 
+           frequency, supplement_consumed, race_ethnicity, enterotype) %>%
+  summarise(avg_richness = round(mean(richness), digits = 0)) %>% 
+  filter(frequency == "1xdaily",
+         supplement_consumed == "LOODAT")
+
+lood_1x_df
+
+```
+```{r}
+lood_1_rich1 <- physq_1 %>% 
+  plot_richness(., "study_week", measures = c("Observed")) +
+  facet_grid("enterotype") +
+  ylab("Richness (Observed ESVs)") + xlab(NULL)
+
+lood_1_rich2plot <- lood_1_rich1 +  
+  geom_violin(aes(color = study_week)) + #add violin in color
+  geom_jitter(aes(color = study_week)) +  #add individual points in color 
+  theme(legend.position = "none") +
+  ggtitle("BLOODAT 1xdaily by Enterotype")
+
+lood_1_rich2plot
+
+```
+```{r}
+#tests for LOODAT 1x daily 
+bartlett.test(avg_richness ~ enterotype, data = lood_1x_df) #p-value = 0.0205 < 0.05. so variances are not good 
+
+#sample sizes 
+lood_1x_df %>%  
+  group_by(enterotype) %>%  
+  summarise(sample_size = n())
+
+lood1_ent1 <- lood_1x_df %>%  
+  filter(enterotype == "Type 1")
+  shapiro.test(lood1_ent1$avg_richness) #p-value = 0.1495
+
+lood1_ent2 <- lood_1x_df %>%  
+  filter(enterotype == "Type 2")
+  shapiro.test(lood1_ent2$avg_richness)  #p-value = 0.07136
+  
+lood1_ent3 <- lood_1x_df %>% 
+  filter(enterotype == "Type 3")
+  shapiro.test(lood1_ent3$avg_richness) #p-value = 0.3287
+
+lood1_aov_results <- aov(avg_richness ~ enterotype, data = lood_1x_df)
+summary(lood1_aov_results) 
+
+```
+
+### LOODAT 2xdaily
+```{r}
+lood_2x_df <- physq_1 %>% 
+  estimate_richness(., split = TRUE, measures = c("Observed")) %>%  
+  rownames_to_column(var = "id") %>% 
+  inner_join(mks_data, by = "id") %>%  
+  rename(richness = Observed) %>%
+  group_by(participant_id, study_week, semester, 
+           frequency, supplement_consumed, race_ethnicity, enterotype) %>%
+  summarise(avg_richness = round(mean(richness), digits = 0)) %>% 
+  filter(frequency == "2xdaily",
+         supplement_consumed == "LOODAT")
+
+lood_2x_df
+
+```
+```{r}
+lood_2_rich1 <- physq_1 %>% 
+  plot_richness(., "study_week", measures = c("Observed")) +
+  facet_grid("enterotype") +
+  ylab("Richness (Observed ESVs)") + xlab(NULL)
+
+lood_2_rich2plot <- lood_2_rich1 +  
+  geom_violin(aes(color = study_week)) + #add violin in color
+  geom_jitter(aes(color = study_week)) +  #add individual points in color 
+  theme(legend.position = "none") +
+  ggtitle("LOODAT 2xdaily by Enterotype")
+
+lood_2_rich2plot
+
+```
+```{r}
+#tests for BRMPS 2x daily 
+bartlett.test(avg_richness ~ enterotype, data = lood_2x_df) #p-value 0.07987> 0.05. so variances are good  
+
+#sample sizes 
+lood_2x_df %>%  
+  group_by(enterotype) %>%  
+  summarise(sample_size = n())
+
+lood2_ent1 <- lood_2x_df %>%  
+  filter(enterotype == "Type 1")
+  shapiro.test(lood2_ent1$avg_richness) #p-value = 0.02197
+  
+lood2_ent2 <- lood_2x_df %>% 
+  filter(enterotype == "Type 2")
+  shapiro.test(lood2_ent2$avg_richness) #p-value = 0.9545
+
+lood2_ent3 <- lood_2x_df %>% 
+  filter(enterotype == "Type 3")
+  shapiro.test(lood2_ent3$avg_richness) #p-value = 0.2441
+  
+lood2_ent4 <- lood_2x_df %>% 
+  filter(enterotype == "Type 4")
+  shapiro.test(lood2_ent4$avg_richness) #p-value = 0.7955
+  
+  
+lood2_aov_results <- aov(avg_richness ~ enterotype, data = lood_2x_df)
+summary(lood2_aov_results)
+
+
+```
+
+### CONCLUSIONS
+p-value = 1.37e-10 
+H0 = that average richness is the same across individuals with different race/ethnicity that consumed BRMPS 1x a day from week 1 to week 3 
+HA = not all the average richnesses are equal across enterotype for individuals that consumed BRMPS 1x a day from week 1 to week 3 (at least one is different). Since our p-value of 1.37e-10  is less than our significance level of 0.05, we reject the null hypothesis. There is enough evidence to suggest that not all the average richnesses are the same across individuals with different race/ethnicities. At least one must be different. 
+
+p-value = 1.13e-07
+H0 = that average richness is the same across individuals with different race/ethnicity that consumed BRMPS 2x a day from week 1 to week 3 
+HA = not all the average richnesses are equal across enterotype for individuals that consumed BRMPS 2x a day from week 1 to week 3 (at least one is different). Since our p-value of 1.13e-07 is less than our significance level of 0.05, we reject the null hypothesis. There is enough evidence to suggest that not all the average richnesses are the same across individuals with different race/ethnicities. At least one must enterotype must be different
+
+p-value = 1.42e-05
+H0 = that average richness is the same across individuals with different race/ethnicity that consumed LOODAT 1x a day from week 1 to week 3 
+HA = not all the average richnesses are equal across enterotype for individuals that consumed LOODAt 1x a day from week 1 to week 3 (at least one is different). Since our p-value of 1.42e-05 is less than our significance level of 0.05, we reject the null hypothesis. There is enough evidence to suggest that not all the average richnesses are the same across individuals with different race/ethnicities. At least one must enterotype must be different 
+
+p-value = 1.05e-06
+H0 = that average richness is the same across individuals with different race/ethnicity that consumed LOODAT 2x a day from week 1 to week 3 
+HA = not all the average richnesses are equal across enterotype for individuals that consumed LOODAt 2x a day from week 1 to week 3 (at least one is different). Since our p-value of 1.05e-06 is less than our significance level of 0.05, we reject the null hypothesis. There is enough evidence to suggest that not all the average richnesses are the same across individuals with different race/ethnicities. At least one must enterotype must be different 
+
+
+Combine all four plots into one multi-panel figure.
+```{r}
+plot_q4 <- plot_grid(brmps_1_rich2plot, brmps_2_rich2plot,lood_1_rich2plot,lood_2_rich2plot,
+          nrow = 2, ncol = 2)
+plot_q4
+
+save_plot(plot_q4,
+          base_width = 20, base_height = 10,
+          filename = "figures/plot_q4.pdf")
+```
+
+
+# Question 5
+Determine if community composition changed in your entrerotype group during consumption of potato starch. Conduct separate comparisons for each brand and frequency. 
+### BRMPS 1xdaily
+```{r}
+# format, subset, ordinate
+brmps1q5_obj <- physq_1 %>% 
+  subset_samples(., enterotype == "Type 1") %>% 
+  subset_samples(., frequency == "1xdaily") %>%  
+  subset_samples(., supplement_consumed == "BRMPS") %>% 
+  tax_glom("Phylum") %>%
+  # convert counts to relative abundance 
+  transform_sample_counts(function(x) {x/sum(x)} ) %>%
+  # convert phyloseq object (matrix) to data frame 
+  psmelt() %>%
+  # sort alphabetically 
+  arrange(Phylum) %>%
+  # Calculate weekly mean of relative abundance
+  group_by(participant_id, study_week, semester, 
+           frequency, supplement_consumed, Phylum, OTU) %>%
+  summarise(relative_abundance = mean(Abundance, na.rm = TRUE)) %>%
+  # remove low abundance taxa
+  filter(relative_abundance > 0.001)
+
+```
+
+```{r}
+# plot 
+brmps1wk1q5_plot <- brmps1q5_obj %>% 
+   # filter for supplement and study week 
+  filter(study_week == "week1") %>% 
+  # set parameters for plot
+  ggplot(aes(x = participant_id, y = relative_abundance,
+             fill = Phylum,
+             study_week, frequency)) + 
+  # layer for stacked bar plot 
+  geom_bar(stat = "identity") +
+  # clean up x-axis 
+  theme(axis.title.x = element_blank(), #remove x-axis label 
+        axis.text.x =  element_text(angle = 90, #rotate tick labels 
+                                    vjust = 0.5,
+                                    hjust = 0.5,
+                                    size = 8)) +
+  # clean up y-axis
+  ylab("Relative Abundance\n(% total sequences)") +
+  ggtitle("BRMPS 1x daily Week 1")
+brmps1wk1q5_plot
+
+brmps1wk3q5_plot <- brmps1q5_obj %>% 
+   # filter for supplement and study week 
+  filter(study_week == "week3") %>% 
+  # set parameters for plot
+  ggplot(aes(x = participant_id, y = relative_abundance,
+             fill = Phylum,
+             study_week, frequency)) + 
+  # layer for stacked bar plot 
+  geom_bar(stat = "identity") +
+  # clean up x-axis 
+  theme(axis.title.x = element_blank(), #remove x-axis label 
+        axis.text.x =  element_text(angle = 90, #rotate tick labels 
+                                    vjust = 0.5,
+                                    hjust = 0.5,
+                                    size = 8)) +
+  # clean up y-axis
+  ylab("Relative Abundance\n(% total sequences)") +
+  ggtitle("BRMPS 1x daily Week 3")
+brmps1wk3q5_plot
+
+brmps_q5plot <- plot_grid(brmps1wk1q5_plot, brmps1wk3q5_plot,
+          nrow = 1, ncol = 2)
+brmps_q5plot
+
+phylum_colors_b1wk1 <- c("#00767d", "#d38665", "#0d8462", "#d68ab9",
+                   "#a6a55d", "#907030", "#F2ED6F")
+phylum_colors_b1wk3 <- c("#00767d", "#d38665", "#0d8462", "#d68ab9",
+                   "#a6a55d", "#2796c9", "#907030", "#2563C6", "#F2ED6F" )
+
+new_brmps1wk1_plot <- brmps1wk1q5_plot + 
+  scale_fill_manual(values = phylum_colors_b1wk1) +
+  theme(legend.position = "none") 
+
+new_brmps1wk3_plot <- brmps1wk3q5_plot + 
+  scale_fill_manual(values = phylum_colors_b1wk3) +
+  ylab(NULL) 
+
+brmps1_plot_new <- plot_grid(new_brmps1wk1_plot, new_brmps1wk3_plot,
+          nrow = 1, ncol = 2)
+brmps1_plot_new
+```
+
+
+### BRMPS 2xdaily 
+```{r}
+# format, subset, ordinate
+brmps2_obj <- physq_1 %>% 
+  subset_samples(., enterotype == "Type 1") %>% 
+  subset_samples(., frequency == "2xdaily") %>%  
+  subset_samples(., supplement_consumed == "BRMPS") %>% 
+  tax_glom("Phylum") %>%
+  # convert counts to relative abundance 
+  transform_sample_counts(function(x) {x/sum(x)} ) %>%
+  # convert phyloseq object (matrix) to data frame 
+  psmelt() %>%
+  # sort alphabetically 
+  arrange(Phylum) %>%
+  # Calculate weekly mean of relative abundance
+  group_by(participant_id, study_week, semester, 
+           frequency, supplement_consumed, Phylum, OTU) %>%
+  summarise(relative_abundance = mean(Abundance, na.rm = TRUE)) %>%
+  # remove low abundance taxa
+  filter(relative_abundance > 0.001)
+```
+
+```{r}
+# plot 
+brmps2wk1q5_plot <- brmps2_obj %>% 
+   # filter for supplement and study week 
+  filter(study_week == "week1") %>% 
+  # set parameters for plot
+  ggplot(aes(x = participant_id, y = relative_abundance,
+             fill = Phylum,
+             study_week, frequency)) + 
+  # layer for stacked bar plot 
+  geom_bar(stat = "identity") +
+  # clean up x-axis 
+  theme(axis.title.x = element_blank(), #remove x-axis label 
+        axis.text.x =  element_text(angle = 90, #rotate tick labels 
+                                    vjust = 0.5,
+                                    hjust = 0.5,
+                                    size = 8)) +
+  # clean up y-axis
+  ylab("Relative Abundance\n(% total sequences)") +
+  ggtitle("BRMPS 2x daily Week 1") +
+  theme(legend.position = "none") 
+brmps2wk1q5_plot
+
+brmps2wk3q5_plot <- brmps2_obj %>% 
+   # filter for supplement and study week 
+  filter(study_week == "week3") %>% 
+  # set parameters for plot
+  ggplot(aes(x = participant_id, y = relative_abundance,
+             fill = Phylum,
+             study_week, frequency)) + 
+  # layer for stacked bar plot 
+  geom_bar(stat = "identity") +
+  # clean up x-axis 
+  theme(axis.title.x = element_blank(), #remove x-axis label 
+        axis.text.x =  element_text(angle = 90, #rotate tick labels 
+                                    vjust = 0.5,
+                                    hjust = 0.5,
+                                    size = 8)) +
+  # clean up y-axis
+  ylab("Relative Abundance\n(% total sequences)") +
+  ggtitle("BRMPS 2x daily Week 3") +
+  ylab(NULL) 
+  
+brmps2wk3q5_plot
+
+brmps2_plot_new <- plot_grid(brmps2wk1q5_plot, brmps2wk3q5_plot,
+          nrow = 1, ncol = 2)
+brmps2_plot_new
+```
+
+
+### LOODAT 1xdaily
+```{r}
+# format, subset, ordinate
+lood1_obj <- physq_1 %>% 
+  subset_samples(., enterotype == "Type 1") %>% 
+  subset_samples(., frequency == "1xdaily") %>%  
+  subset_samples(., supplement_consumed == "LOODAT") %>% 
+  tax_glom("Phylum") %>%
+  # convert counts to relative abundance 
+  transform_sample_counts(function(x) {x/sum(x)} ) %>%
+  # convert phyloseq object (matrix) to data frame 
+  psmelt() %>%
+  # sort alphabetically 
+  arrange(Phylum) %>%
+  # Calculate weekly mean of relative abundance
+  group_by(participant_id, study_week, semester, 
+           frequency, supplement_consumed, Phylum, OTU) %>%
+  summarise(relative_abundance = mean(Abundance, na.rm = TRUE)) %>%
+  # remove low abundance taxa
+  filter(relative_abundance > 0.001)
+```
+
+```{r}
+# plot 
+lood1wk1q5_plot <- lood1_obj %>% 
+   # filter for supplement and study week 
+  filter(study_week == "week1") %>% 
+  # set parameters for plot
+  ggplot(aes(x = participant_id, y = relative_abundance,
+             fill = Phylum,
+             study_week, frequency)) + 
+  # layer for stacked bar plot 
+  geom_bar(stat = "identity") +
+  # clean up x-axis 
+  theme(axis.title.x = element_blank(), #remove x-axis label 
+        axis.text.x =  element_text(angle = 90, #rotate tick labels 
+                                    vjust = 0.5,
+                                    hjust = 0.5,
+                                    size = 8)) +
+  # clean up y-axis
+  ylab("Relative Abundance\n(% total sequences)") +
+  ggtitle("LOODAT 1x daily Week 1") + 
+  theme(legend.position = "none") 
+  
+lood1wk1q5_plot
+
+lood1wk3q5_plot <- lood1_obj %>% 
+   # filter for supplement and study week 
+  filter(study_week == "week3") %>% 
+  # set parameters for plot
+  ggplot(aes(x = participant_id, y = relative_abundance,
+             fill = Phylum,
+             study_week, frequency)) + 
+  # layer for stacked bar plot 
+  geom_bar(stat = "identity") +
+  # clean up x-axis 
+  theme(axis.title.x = element_blank(), #remove x-axis label 
+        axis.text.x =  element_text(angle = 90, #rotate tick labels 
+                                    vjust = 0.5,
+                                    hjust = 0.5,
+                                    size = 8)) +
+  # clean up y-axis
+  ylab("Relative Abundance\n(% total sequences)") +
+  ggtitle("LOODAT 1x daily Week 3") + 
+  ylab(NULL) 
+lood1wk3q5_plot
+
+lood1_plot_new <- plot_grid(lood1wk1q5_plot, lood1wk3q5_plot,
+          nrow = 1, ncol = 2)
+lood1_plot_new
+```
+
+
+### LOODAT 2xdaily
+```{r}
+# format, subset, ordinate
+lood2_obj <- physq_1 %>% 
+  subset_samples(., enterotype == "Type 1") %>% 
+  subset_samples(., frequency == "2xdaily") %>%  
+  subset_samples(., supplement_consumed == "LOODAT") %>% 
+  tax_glom("Phylum") %>%
+  # convert counts to relative abundance 
+  transform_sample_counts(function(x) {x/sum(x)} ) %>%
+  # convert phyloseq object (matrix) to data frame 
+  psmelt() %>%
+  # sort alphabetically 
+  arrange(Phylum) %>%
+  # Calculate weekly mean of relative abundance
+  group_by(participant_id, study_week, semester, 
+           frequency, supplement_consumed, Phylum, OTU) %>%
+  summarise(relative_abundance = mean(Abundance, na.rm = TRUE)) %>%
+  # remove low abundance taxa
+  filter(relative_abundance > 0.001)
+```
+
+```{r}
+# plot 
+lood2wk1q5_plot <- lood2_obj %>% 
+   # filter for supplement and study week 
+  filter(study_week == "week1") %>% 
+  # set parameters for plot
+  ggplot(aes(x = participant_id, y = relative_abundance,
+             fill = Phylum,
+             study_week, frequency)) + 
+  # layer for stacked bar plot 
+  geom_bar(stat = "identity") +
+  # clean up x-axis 
+  theme(axis.title.x = element_blank(), #remove x-axis label 
+        axis.text.x =  element_text(angle = 90, #rotate tick labels 
+                                    vjust = 0.5,
+                                    hjust = 0.5,
+                                    size = 8)) +
+  # clean up y-axis
+  ylab("Relative Abundance\n(% total sequences)") +
+  ggtitle("LOODAT 2x daily Week 1") + 
+  theme(legend.position = "none")
+lood2wk1q5_plot
+
+lood2wk3q5_plot <- lood2_obj %>% 
+   # filter for supplement and study week 
+  filter(study_week == "week3") %>% 
+  # set parameters for plot
+  ggplot(aes(x = participant_id, y = relative_abundance,
+             fill = Phylum,
+             study_week, frequency)) + 
+  # layer for stacked bar plot 
+  geom_bar(stat = "identity") +
+  # clean up x-axis 
+  theme(axis.title.x = element_blank(), #remove x-axis label 
+        axis.text.x =  element_text(angle = 90, #rotate tick labels 
+                                    vjust = 0.5,
+                                    hjust = 0.5,
+                                    size = 8)) +
+  # clean up y-axis
+  ylab("Relative Abundance\n(% total sequences)") +
+  ggtitle("LOODAT 2x daily Week 3") + 
+  ylab(NULL) 
+lood2wk3q5_plot
+
+lood2_plot_new <- plot_grid(lood2wk1q5_plot, lood2wk3q5_plot,
+          nrow = 1, ncol = 2)
+lood2_plot_new
+```
+
+
+Conclusion: 
+i could not figure out what tests to run because i didnt know how to determine the proportion of each phyla of bacteria present 
+
+Combine all four plots into one multi-panel figure.
+```{r}
+# name final plot plot_q5
+plot_q5 <- plot_grid(brmps1_plot_new,brmps2_plot_new,lood1_plot_new,lood2_plot_new,
+          nrow = 2, ncol = 2)
+plot_q5
+
+save_plot(plot_q5,
+          base_width = 20, base_height = 10,
+          filename = "figures/plot_q5.pdf")
+
+```
+
+
+-----
+end
