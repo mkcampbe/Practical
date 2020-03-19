@@ -2,15 +2,16 @@
 title: "W20 Bio201 Practical"
 author: "Mary Kate Campbell"
 date: "3/11/2020"
-output: html_document
----
+output:
+  html_document
+  pdf_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 knitr::opts_knit$set(root.dir = "~/Documents/Bio201_W20/Practical/")
 ```
-# Load Packages
-```{r include=FALSE}
+# Load Packages 
+```{r include = FALSE}
 library(vegan)
 library(tidyverse)
 library(readxl)
@@ -566,7 +567,7 @@ fiber_df <- sample_df %>%
          -starts_with("id")) %>% 
   filter(enterotype == "Type 1",
          study_week == "week1",
-         supplement_consume d == "BRMPS" | supplement_consumed == "LOODAT") %>% 
+         supplement_consumed == "BRMPS" | supplement_consumed == "LOODAT") %>% 
   drop_na(fiber_g)
 # average age and sd of those who consumed LOODAT 
 mean(subset(fiber_df, supplement_consumed == "LOODAT")$fiber_g) #mean = 21.454555 grams
@@ -632,7 +633,7 @@ brmps_1_rich2plot
 
 ```{r}
 #tests for BRMPS 1x daily 
-bartlett.test(avg_richness ~ enterotype, data = brmps_1x_df) #p-value = 0.01464 < 0.05. so variances are not good 
+bartlett.test(avg_richness ~ enterotype, data = brmps_1x_df) #p-value = 0.00158 < 0.05. so variances are not good 
 
 #sample sizes 
 brmps_1x_df %>%  
@@ -649,11 +650,11 @@ brmps1_ent2 <- brmps_1x_df %>%
   
 brmps1_ent3 <- brmps_1x_df %>% 
   filter(enterotype == "Type 3")
-  shapiro.test(brmps1_race3$avg_richness) #p-value = 0.7939
+  shapiro.test(brmps1_ent3$avg_richness) #p-value = 0.001258
   
 brmps1_ent4 <- brmps_1x_df %>% 
   filter(enterotype == "Type 4")
-  shapiro.test(brmps1_ent4$avg_richness) #p-value = 0.9148
+  shapiro.test(brmps1_ent4$avg_richness) #p-value = 0.7208
   
 brmps1_aov_results <- aov(avg_richness ~ enterotype, data = brmps_1x_df)
 summary(brmps1_aov_results)
@@ -756,7 +757,7 @@ lood_1_rich2plot <- lood_1_rich1 +
   theme(legend.position = "none") +
   ggtitle("BLOODAT 1xdaily by Enterotype")
 
-lood_1_rich2
+lood_1_rich2plot
 
 ```
 ```{r}
@@ -905,7 +906,7 @@ brmps1q5_obj <- physq_1 %>%
 
 ```{r}
 # plot 
-brmps1wk1q5_plot <- brmps1_obj %>% 
+brmps1wk1q5_plot <- brmps1q5_obj %>% 
    # filter for supplement and study week 
   filter(study_week == "week1") %>% 
   # set parameters for plot
@@ -925,7 +926,7 @@ brmps1wk1q5_plot <- brmps1_obj %>%
   ggtitle("BRMPS 1x daily Week 1")
 brmps1wk1q5_plot
 
-brmps1wk3q5_plot <- brmps1_obj %>% 
+brmps1wk3q5_plot <- brmps1q5_obj %>% 
    # filter for supplement and study week 
   filter(study_week == "week3") %>% 
   # set parameters for plot
@@ -967,10 +968,6 @@ brmps1_plot_new <- plot_grid(new_brmps1wk1_plot, new_brmps1wk3_plot,
 brmps1_plot_new
 ```
 
-```{r}
-# test(s) 
-
-```
 
 ### BRMPS 2xdaily 
 ```{r}
@@ -1044,10 +1041,6 @@ brmps2_plot_new <- plot_grid(brmps2wk1q5_plot, brmps2wk3q5_plot,
 brmps2_plot_new
 ```
 
-```{r}
-# test(s) 
-
-```
 
 ### LOODAT 1xdaily
 ```{r}
@@ -1121,10 +1114,6 @@ lood1_plot_new <- plot_grid(lood1wk1q5_plot, lood1wk3q5_plot,
 lood1_plot_new
 ```
 
-```{r}
-# test(s) 
-
-```
 
 ### LOODAT 2xdaily
 ```{r}
@@ -1197,9 +1186,6 @@ lood2_plot_new <- plot_grid(lood2wk1q5_plot, lood2wk3q5_plot,
 lood2_plot_new
 ```
 
-```{r}
-# test(s) 
-```
 
 Conclusion: 
 i could not figure out what tests to run because i didnt know how to determine the proportion of each phyla of bacteria present 
