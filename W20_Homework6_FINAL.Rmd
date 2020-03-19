@@ -1,0 +1,513 @@
+---
+title: "W20 Homework 6"
+author: "Mary Kate Campbell"
+date: "2/26/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_knit$set(root.dir = "~/Documents/UMBio201/Lab8")
+```
+
+# Load packages
+```{r}
+library(vegan)
+library(tidyverse)
+library(readxl)
+library(broom)
+library(cowplot)
+library(phyloseq)
+set.seed(7)
+source("miseqR.R") #rerun this for question4 ordination function -- use scale reads
+```
+
+# Introduction
+
+Change author name in completed assignment. Make sure p- and r-values are recorded as comments after each statistical test. Save all plots generated today, save final version(s) of phyloseq objects as RDS files. Once completed, Knit the Rmd to HTML, check the table formatting in this final version, and upload to GitHub.
+
+### RDS object
+One way to distribute R-formatted data is as an .RDS object. For example: Open Lab 7, run the code in the 'Import' and 'Create phyloseq objects' sections. When you have the 'physq_obj' created and present in your global environment run the code chunk below:
+```{r eval=FALSE, include=FALSE}
+# save an RDS
+saveRDS(physq_obj, compress = TRUE,
+        file = "~/Documents/UMBio201/Lab8/physq_obj.RDS")
+```
+Clear your global environment. (use Broom icon) Any time you want to work with this saved R (phyloseq) object in the future you can skip to the import section here: 
+```{r eval=FALSE, include=FALSE}
+# import an RDS
+physq_obj <- readRDS(file = "~/Documents/UMBio201/Lab8/physq_obj.RDS")
+```
+Clear your global environment again, we will not use this object in lab today.
+
+# Import data
+
+### Sample data 
+Import sample data (all_data_indv.txt), filter for participants who consumed either of the potato starches:
+```{r}
+samples_df <- read_delim("raw_data/Lab8_data/all_data_indv.txt", 
+                            delim = "\t", escape_double = FALSE, 
+                            trim_ws = TRUE, 
+                            col_types = cols(Sample_number = col_character(),
+                                             Bristol_numeric = col_number(),
+                                             Bristol_score = col_character(), 
+                                             pH = col_number())) %>%
+  # make all column names lower case
+  rename_all(tolower) %>% 
+  # remove duplicate sample ids
+  distinct(., sample_id, .keep_all = TRUE) %>%  
+  # subset for samples, semesters, weeks of interest 
+  filter(use_data == "yes", 
+         quantity_compliant != "no",
+         #semester != "Winter2015",
+         study_week == "week1" | study_week == "week3",
+         supplement_consumed == "BRMPS" | supplement_consumed == "LOODAT")
+
+dim(samples_df) #1166 rows, 20 cols
+n_distinct(samples_df$participant_id) #201
+```
+
+### Diet data
+Import the dietary information from study participants, join with sample data imported in section above. The result contains the diet & sample data. Note that after the join we have the same number of participants in the resulting data frame.  
+```{r}
+diet_df <- read_delim("raw_data/Lab8_data/diet_data.txt", 
+                            delim = "\t", escape_double = FALSE, 
+                            trim_ws = TRUE) %>%
+  # make all column names lower case
+  rename_all(tolower) %>%
+  # use right join because we already filtered samples_df
+  select(-semester, -study_week) %>% 
+  right_join(samples_df, by = c("participant_id"))
+dim(diet_df) #1166 rows, 23 cols
+n_distinct(diet_df$participant_id) #201
+```
+
+### Question 1 [2 pts]
+
+##### Biographical data 
+The analyses you will conduct in later sections of this assignment are going to ask for comparisons betwwen groups that require some biographical data (sex, ethnicity, diet, etc.).
+Import the lifestyle data file, format according to class conventions, review the data in each column, decide if any data curation should occur and complete that process. 
+```{r}
+bio_df <- read_delim("raw_data/Lab8_data/biographical.txt",
+                     delim = "\t", escape_double = FALSE, 
+                            trim_ws = TRUE,
+                     col_types = cols(Participant_ID = col_character(),
+                                      Semester = col_character(),
+                                      Use_Data = col_character(),
+                                      Sex = col_character(),
+                                      Age = col_double(),
+                                      Race_ethnicity = col_character(),
+                                      Weight_kg = col_double(),
+                                      Height_meters = col_double(),
+                                      BMI = col_double(),
+                                      antibiotic_past_year = col_character(),
+                                      antibiotic_date = col_character()) )%>%  
+  rename_all(tolower) %>% #rename all columns to lowercase
+  distinct(., participant_id, .keep_all = TRUE) #to make each participant distinct by removing duplicate sample ids 
+
+dim(bio_df)
+```
+
+How many rows are in the resulting data frame? 802
+How many participants are in the resulting data frame? 802 participants 
+
+Join diet_df and bio_df data frames, name it bio_sam_df. What are the dimensions of the result?
+```{r}
+bio_sam_df <- inner_join(diet_df, bio_df)
+dim(bio_sam_df) #the dimensions are 1171 rows by 30 columns 
+
+```
+
+In the code chunk below conduct the following summary statistics, and write the results in an R markdown table, or several tables if easier. 
+
+* number of males and females consuming each supplement
+* number of race/ethnicity consuming each supplement
+* average dietary fiber and standard deviation in males and females
+* number of participants who consumed antibiotics any time in the 3 months prior and up through the time of the study
+
+```{r}
+#number of males and females consuming each supplement 
+sex_df <- bio_sam_df %>% 
+  drop_na(sex) %>% 
+  group_by(supplement_consumed, sex) %>%  
+  summarise(Counts = n())
+
+sex_df 
+
+sex_tab <- with(bio_sam_df, table(sex, supplement_consumed))
+sex_tab
+
+#number of race/ethnicity consuming each supplement 
+race_df <- bio_sam_df %>% 
+  drop_na(race_ethnicity) %>% 
+  group_by(supplement_consumed, race_ethnicity) %>%  
+  summarise(Counts = n()) 
+
+race_tab <- with(bio_sam_df, table(race_ethnicity, supplement_consumed))
+race_tab 
+
+#average dietary fiber and standard deviation in males and females--> calculation across rows 
+fiber_df <- bio_sam_df %>%  
+  drop_na(sex,fiber_g) %>% 
+  group_by(sex) %>% 
+  summarize(mean(fiber_g), sd(fiber_g))
+fiber_df
+
+#number of participants who consumed antibiotics <= 3 months ago 
+ resist_df <- bio_sam_df %>%  
+  filter(antibiotic_date == "<=3 months ago") %>% 
+  group_by(antibiotic_date) %>% 
+  summarise(Counts = n())
+ resist_df 
+```
+         supplement_consumed
+sex      BRMPS LOODAT
+  Female   633     87
+  Male     359     40 
+  
+                                        supplement_consumed
+race_ethnicity                           BRMPS LOODAT
+  2 or more ethnicities                     65     16
+  Asian                                    233     40
+  Asian or Pacific Islander                 48      0
+  Black American                            45      7
+  Black non-American                         8      0
+  Caucasian/white                          502     32
+  Hawaiian or Pacific Islander               0      8
+  Latinx or Hispanic                        23      0
+  Middle Eastern or North African (MENA)    46     24
+  Other                                     16      0
+  Prefer not to say                          6      0
+
+### Question 2 [2 pts]
+
+##### Phyloseq object 
+Import the shared and taxonomy tables. Use these along with the bio_sam_df to create a phylseq object. 
+```{r}
+shared_mk <- read_delim("raw_data/Lab8_data/MMP_thruf19_filtered.shared",
+                            delim = "\t", escape_double = FALSE, 
+                            trim_ws = TRUE, na=c("NA"),
+                            col_types = list()) %>%
+  # separate Group column by underscores
+  separate(col = Group, 
+           into = c("participant_id", "sample_number", "seq_num"),
+           sep = "_", extra = "drop") %>%
+  # combine columns to make new sample id column 
+  mutate(sample_id = paste(participant_id, sample_number, sep = "_")) %>% 
+  # drop extra columns, reorder columns
+  select(sample_id, starts_with("Otu")) %>%
+  # drop control samples from sequencing
+  filter(str_detect(sample_id, "^U")) %>%
+  # remove duplicate sample ids
+  distinct(sample_id, .keep_all = TRUE) %>% 
+  # sample IDs need to be made into row names
+  column_to_rownames(var = "sample_id") %>% 
+  # convert data frame to matrix object
+  as.matrix() %>% 
+  # convert to phyloseq object 
+  otu_table(., taxa_are_rows = FALSE)  
+```
+
+```{r}
+taxa_mk <- read_delim("raw_data//Lab8_data/MMP_thruf19.taxonomy",
+                            delim = "\t", escape_double = FALSE, 
+                            trim_ws = TRUE, na=c("NA")) %>%
+  # sequence variants (OTUs) need to be made into row names 
+  column_to_rownames(var = "ESV") %>% 
+  as.matrix() %>%
+  # convert to phyloseq object 
+  tax_table()  
+```
+
+```{r}
+bio_sam_df2 <- bio_sam_df %>% 
+  distinct(., sample_id, .keep_all = TRUE) %>%  
+  # sample IDs need to be made into row names
+  column_to_rownames(var = "sample_id") %>% 
+  # specify type of phyloseq object
+  sample_data() 
+
+bio_sam_df3 <- bio_sam_df %>% 
+  distinct(., sample_id, .keep_all = TRUE)
+
+# combine all objects
+mks_obj <- phyloseq(shared_mk, taxa_mk, bio_sam_df2) %>% 
+  subset_samples(., use_data == "yes") %>%
+  subset_samples(., quantity_compliant != "no") %>%
+  subset_samples(., semester != "Winter2015")
+
+saveRDS(mks_obj, compress = TRUE,
+        file = "~/Documents/UMBio201/Lab8/mks_obj.RDS")
+
+```
+
+How many taxa are in the resulting object? 7521 taxa 
+How many samples are in the resulting object? 1019 samples
+How many sample variables are in the resulting object? 29 sample variables
+
+
+# Question 3 [4 pts]
+
+In individuals who consumed either type of potato starch twice a day, does richness change consistently from week 1 to week 3 across each race/ethnicity? Save plot(s). mutate (race_ethnicity = recode(race_ethnicity, "asian american" = "asian))
+```{r}
+#subset data 
+mks_data <- bio_sam_df3 %>% 
+  select(participant_id, sample_number, sample_id, study_week, semester, supplement_consumed, frequency, race_ethnicity, quantity_compliant) %>% 
+  mutate(race_ethnicity = recode(race_ethnicity, "Hawaiian or Pacific Islander" = "Asian")) %>% 
+  mutate(race_ethnicity = recode(race_ethnicity, "Asian or Pacific Islander" = "Asian")) %>% 
+  filter(quantity_compliant != "no", 
+         frequency == "2xdaily",
+         study_week == "week1" | study_week == "week3",
+         race_ethnicity != "Black non-American" & race_ethnicity != "Other" & race_ethnicity != "Prefer not to say" & race_ethnicity != "2 or more ethnicities"
+        )
+
+```
+
+```{r}
+richness_df_2 <- mks_obj %>%  
+  estimate_richness(., split = TRUE, measures = c("Observed")) %>%  
+  rownames_to_column(var = "sample_id") %>% 
+  inner_join(mks_data, by = "sample_id") %>%  
+  rename(richness = Observed) %>%
+  group_by(participant_id, study_week, semester, 
+           frequency, supplement_consumed, race_ethnicity) %>%
+  summarise(avg_richness = round(mean(richness), digits = 0)) 
+
+richness_df_2
+
+```
+
+```{r}
+rich_3 <- mks_obj %>% 
+  plot_richness(., "study_week", measures = c("Observed")) +
+  facet_grid("race_ethnicity") +
+  ylab("Richness (Observed ESVs)") + xlab(NULL)
+
+rich_3
+
+save_plot(rich_3,
+          base_width = 12, base_height = 4,
+          filename = "figures/richness_plot2.pdf")
+```
+
+```{r}
+rich4 <- rich_3 +  
+  geom_violin(aes(color = study_week)) + #add violin in color
+  geom_jitter(aes(color = study_week)) +  #add individual points in color 
+  theme(legend.position = "none")
+
+rich4
+
+save_plot(rich4,
+          base_width = 12, base_height = 4,
+          filename = "figures/richness_plot.pdf")
+```
+```{r}
+#statistical tests 
+bartlett.test(avg_richness ~ race_ethnicity, data = richness_df_2) #p-value = 0.2764 > 0.05. so variances are good 
+
+#sample sizes 
+richness_df_2 %>%  
+  group_by(race_ethnicity) %>%  
+  summarise(sample_size = n())
+
+race_1 <- richness_df_2 %>%  
+  filter(race_ethnicity == "Caucasian/white")
+  shapiro.test(race_1$avg_richness) #p-value = 0.1925
+
+race_2 <- richness_df_2 %>%  
+  filter(race_ethnicity == "Asian")
+  shapiro.test(race_2$avg_richness) #p-value = 0.6344
+  
+race_3 <- richness_df_2 %>% 
+  filter(race_ethnicity == "Latinx or Hispanic")
+  shapiro.test(race_3$avg_richness) #p-value = 0.4222
+  
+#race_4 <- richness_df_2 %>% 
+  #filter(race_ethnicity == "Black American")
+  #shapiro.test(race_4$avg_richness) only 2 Black Americans in data frame 
+  
+#race_5 <- richness_df_2 %>% 
+  #filter(race_ethnicity == "Middle Eastern or North African (MENA)")
+  #shapiro.test(race_5$avg_richness) only 2 MENA 
+
+richness_df_3 <- richness_df_2 %>%  
+  filter(race_ethnicity != "Middle Eastern or North African (MENA)" & 
+           race_ethnicity != "Black American") #filter out these individuals because not enough of them to run a shapiro test 
+
+mk_aov_results <- aov(avg_richness ~ race_ethnicity, data = richness_df_3)
+summary(mk_aov_results)
+```
+<write conclusions here> 
+p-value = 0.0224
+H0 = that average richness is the same across individuals with different race/ethnicity that consumed potato starch 2x a day from week 1 to week 3 
+HA = not all the average richnesses are equal across race/ethnicity for individuals that consumed potato starch 2x a day from week 1 to week 3 (at least one is different). 
+
+Since our p-value of 0.0224 is less than our significance level of 0.05, we reject the null hypothesis. There is signficant evidence to suggest that not all the average richnesses are the same across individuals with different race/ethnicities. At least one must be different and further statistical tests and analyses are needed to determine which 
+
+
+# Question 4 [4 pts]
+--l look at lab 7 ordination but different 
+Conduct an ordination using the Bray-Curtis index to determine if the communities of participants were different based on how recently they were prescribed antibiotics (<=3 mos. or >3 mos.). Do not include any data from when individuals consumed starch (week 3) in this analysis. 
+```{r}
+# data formatting 
+mks_obj2 <- mks_obj %>% 
+  subset_samples(., study_week == "week1") %>% 
+  subset_samples(., antibiotic_date == "<= 3 months ago" | antibiotic_date == "> 3 months ago") %>% 
+  prune_taxa(taxa_sums(.) > 1000, .) %>%
+  prune_samples(sample_sums(.) > 1000, .)
+```
+
+```{r}
+# reads coutns + subsample
+sample_sum_df_2 <- data.frame(sum = sample_sums(mks_obj2))
+
+# Histogram of sample read counts --> looks normal
+ggplot(sample_sum_df_2, aes(x = sum)) + 
+  geom_histogram(color = "black", fill = "gray", binwidth = 2500) +
+  ggtitle("Distribution of sample sequencing depth") + 
+  xlab("Read counts") +
+  theme(axis.title.y = element_blank())
+
+# Summary statistics on read counts 
+min(sample_sums(mks_obj2)) #2677
+mean(sample_sums(mks_obj2)) #18727.7
+max(sample_sums(mks_obj2))  #47278
+
+mkobj_scale <- mks_obj2 %>%
+  scale_reads(round = "round") 
+```
+
+```{r}
+# ordination
+mksobj_bc <- ordinate(mkobj_scale, 
+           method = "NMDS", 
+           k=3, maxit=500, try=50,
+           distance = "bray")  
+mksobj_bc 
+#stress = 0.1683287 
+```
+
+```{r}
+# plot
+ordplot2 <- plot_ordination(physeq = mks_obj2, 
+                     ordination = mksobj_bc, 
+                     type = "samples", 
+                     color = "antibiotic_date", 
+                     shape = "antibiotic_date")
+print(ordplot2)
+
+save_plot(ordplot2,
+          base_width = 12, base_height = 4,
+          filename = "figures/ordinance_plot.pdf")
+```
+
+```{r}
+# statistical test 
+dat_bray2 <- phyloseq::distance(mks_obj2, method = "bray") 
+sampledf <- mks_obj2 %>% 
+  sample_data(.) %>% #extract sample data from phyloseq object 
+  as(., "data.frame") #convert to data frame for adonis()
+
+# run test
+adn_res <- adonis(formula = dat_bray2 ~ study_week, 
+                  data = sampledf)
+
+# view results 
+print(adn_res)
+```
+
+<write conclusions here> 
+
+
+
+# Question 5 [8 pts]
+-- start with phyloseq objet and subsetting for taxa of interest 
+subset_taxa(., Genus = "some Genus")
+subset as many samples as possible 
+use tax_glom 
+use psmelt 
+
+lots of extra columns --> take code chunck where
+long data frame after psmelt function 
+go back to a statistical test that we have done in awhile 
+
+
+Recent research has shown there is a correlation with salivary amylase activity and starch degraders in the colon. There are genetic and lifestyle variables that can correlate with salivary amylase activity. We are interested if dietary fiber (a lifestyle variable) also correlates with starch degrader abundnace. "hard question" 
+
+Is there a correlation between the abundance of Ruminococcus spp. and fiber in the diet? 
+```{r}
+# data formatting 
+# Hint: Use psmelt() to convert the phyloseq object to long-format data frame, remove as much extra information from the data frame as possible.
+
+mkobj_df <- mks_obj
+
+```
+
+```{r}
+# plot
+
+```
+
+```{r}
+# statistical test Linear model from lab 5 
+
+```
+
+<write conclusions here> 
+
+
+Does Ruminococcus abundance significantly differ between any race/ethnicity? Have to do an ANOVA 
+```{r}
+# data formatting remove week 3 data 
+```
+
+```{r}
+# plot
+```
+
+```{r}
+# statistical test
+```
+
+<write conclusions here> 
+
+
+Is there a correlation between the abundance of Bifidobacterium faecale (Otu0023519) and fiber in the diet? 
+```{r}
+# data formatting 
+# Hint: Use psmelt() to convert the phyloseq object to long-format data frame, remove as much extra information from the data frame as possible.
+
+transform_sample_counts(function(x)
+  subset_taxa(Genus == "Bifidobacterium") %>%  
+  psmelt() 
+```
+
+```{r}
+# plot
+```
+
+```{r}
+# statistical test ANOVA 
+```
+
+<write conclusions here> 
+
+Does Bifidobacterium faecale abundance significantly differ between any race/ethnicity?
+```{r}
+# data formatting 
+```
+
+```{r}
+# plot
+```
+
+```{r}
+# statistical test
+```
+
+<write conclusions here> 
+
+
+-----
+end 
